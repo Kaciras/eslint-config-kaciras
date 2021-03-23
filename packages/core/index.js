@@ -3,6 +3,7 @@ module.exports = {
 		"eslint:recommended",
 	],
 	env: {
+		// 这个包含了 parserOptions.ecmaVersion: 12
 		es2021: true,
 	},
 	parserOptions: {

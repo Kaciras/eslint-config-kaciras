@@ -1,12 +1,14 @@
+/*
+ * @typescript-eslint/eslint-plugin/dist/configs/base.js 里已经添加了 parser 和 plugin，这里无需再写。
+ *
+ * 使用中发现 TS 的规则和 JS 有冲突，故将 TS 的规则放在 overrides 里。
+ */
 module.exports = {
-	plugins: ["@typescript-eslint"],
-
 	overrides: [{
-		files: ["*.ts?(x)"],
+		files: ["*.ts", "*.tsx"],
 		extends: [
 			"plugin:@typescript-eslint/recommended",
 		],
-		parser: "@typescript-eslint/parser",
 		rules: {
 			// 不让用感叹号是不对的，总有些情况必须这样做。
 			"@typescript-eslint/no-non-null-assertion": "off",
