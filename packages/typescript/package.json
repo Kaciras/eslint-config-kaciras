@@ -1,0 +1,18 @@
+{
+	"name": "@kaciras/eslint-config-typescript",
+	"version": "1.0.0",
+	"license": "MIT",
+	"description": "ESLint config for Kaciras",
+	"author": "Kaciras",
+	"engines": {
+		"node": ">=15.11.0"
+	},
+	"main": "index.js",
+	"peerDependencies": {
+		"eslint": "^7.22.0"
+	},
+	"dependencies": {
+		"@typescript-eslint/parser": "^4.17.0",
+		"@typescript-eslint/eslint-plugin": "^4.17.0"
+	}
+}

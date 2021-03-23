@@ -1,4 +1,4 @@
 module.exports = {
 	env: { node: true },
-	extends: ["./lib/index.js"],
+	extends: ["./packages/core/index.js"],
 };

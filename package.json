@@ -1,31 +1,14 @@
 {
-	"name": "@kaciras/eslint-config",
-	"version": "0.0.0",
-	"license": "MIT",
-	"description": "ESLint config for Kaciras",
-	"author": "Kaciras",
-	"keywords": [
-		"eslint",
-		"eslintplugin",
-		"eslint-plugin"
-	],
-	"engines": {
-		"node": ">=15.11.0"
-	},
-	"main": "lib/index.js",
+	"private": true,
+	"author": "Kaciras <Kaciras@pm.me>",
 	"scripts": {
 		"lint": "eslint --fix .",
-		"test": "mocha tests --recursive"
-	},
-	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "^4.17.0",
-		"@typescript-eslint/parser": "^4.17.0"
+		"test": "mocha tests --recursive",
+		"publish": "lerna publish"
 	},
 	"devDependencies": {
 		"eslint": "^7.22.0",
+		"lerna": "^4.0.0",
 		"mocha": "^8.3.2"
-	},
-	"peerDependencies": {
-		"eslint": "^7.22.0"
 	}
 }
