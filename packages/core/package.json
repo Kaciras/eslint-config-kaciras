@@ -3,12 +3,15 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"description": "ESLint config for Kaciras",
-	"author": "Kaciras",
+	"author": "Kaciras <Kaciras@pm.me>",
 	"engines": {
 		"node": ">=15.11.0"
 	},
 	"main": "index.js",
 	"peerDependencies": {
+		"eslint": "^7.22.0"
+	},
+	"devDependencies": {
 		"eslint": "^7.22.0"
 	}
 }
