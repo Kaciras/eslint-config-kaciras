@@ -9,7 +9,7 @@ module.exports = {
 	},
 	overrides: [
 		{
-			files: ["tests/**/*.js"],
+			files: "tests/**/*.ts",
 			env: { mocha: true },
 		},
 	],

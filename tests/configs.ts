@@ -6,9 +6,9 @@ it("should add plugins from extends", async () => {
 		useEslintrc: false,
 		overrideConfigFile: "packages/react/index.js",
 	});
-	const config = await eslint.calculateConfigForFile("test.jsx");
+	const { plugins } = await eslint.calculateConfigForFile("foobar.jsx");
 
-	assert.strictEqual(config.plugins.length, 2);
-	assert(config.plugins.includes("react"));
-	assert(config.plugins.includes("react-hooks"));
+	assert.strictEqual(plugins.length, 2);
+	assert(plugins.includes("react"));
+	assert(plugins.includes("react-hooks"));
 });
