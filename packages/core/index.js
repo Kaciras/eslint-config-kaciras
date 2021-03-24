@@ -21,12 +21,16 @@ module.exports = {
 
 		// 函数名和括号见不加空格，关键字与括号间加。
 		"space-before-function-paren": ["error", {
-			anonymous: "never",
+			anonymous: "always",
 			named: "never",
 			asyncArrow: "always",
 		}],
 
+		// 我应该不会这么写吧，不过还是加上以免意外。
+		"no-array-constructor": "error",
+
 		// 永远使用三等号，避免一些无聊的问题。
+		// 有时候其它语言写多了，回来会忘，所以启用这个规则。
 		"eqeqeq": "error",
 
 		// JS 的分号是有坑的，不知道为什么默认不加。

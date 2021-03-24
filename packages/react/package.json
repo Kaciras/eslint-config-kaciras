@@ -1,5 +1,5 @@
 {
-	"name": "@kaciras/eslint-config-typescript",
+	"name": "@kaciras/eslint-config-react",
 	"version": "1.0.0",
 	"license": "MIT",
 	"description": "ESLint config for Kaciras",
@@ -9,15 +9,13 @@
 	},
 	"main": "index.js",
 	"peerDependencies": {
-		"eslint": "^7.22.0",
-		"typescript": "^4.2.3"
+		"eslint": "^7.22.0"
 	},
 	"devDependencies": {
-		"eslint": "^7.22.0",
-		"typescript": "^4.2.3"
+		"eslint": "^7.22.0"
 	},
 	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "^4.17.0",
-		"@typescript-eslint/parser": "^4.17.0"
+		"eslint-plugin-react": "^7.23.0",
+		"eslint-plugin-react-hooks": "^4.2.0"
 	}
 }
