@@ -1,4 +1,4 @@
-# eslint-plugin-kaciras
+# eslint-config-kaciras
 
 ESLint config for Kaciras
 
@@ -7,44 +7,30 @@ ESLint config for Kaciras
 You'll first need to install [ESLint](http://eslint.org):
 
 ```
-$ npm i eslint --save-dev
+$ npm i eslint
 ```
 
-Next, install `eslint-plugin-kaciras`:
+Next, install config packages:
 
 ```
-$ npm install eslint-plugin-kaciras --save-dev
-```
+$ npm i -D @kaciras/eslint-config-core
 
+// If your project use typescript
+$ npm i -D @kaciras/eslint-config-typescript
+
+// If your project use react
+$ npm i -D @kaciras/eslint-config-react
+```
 
 ## Usage
 
-Add `kaciras` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
-
-```json
-{
-    "plugins": [
-        "kaciras"
-    ]
-}
+```javascript
+module.exports = {
+    root: true,
+    plugins: [
+       "@kaciras/core",
+       "@kaciras/typescript", // for TS project
+       "@kaciras/react", // for React project
+    ],
+};
 ```
-
-
-Then configure the rules you want to use under the rules section.
-
-```json
-{
-    "rules": {
-        "kaciras/rule-name": 2
-    }
-}
-```
-
-## Supported Rules
-
-* Fill in provided rules here
-
-
-
-
-

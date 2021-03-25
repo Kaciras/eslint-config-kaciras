@@ -1,7 +1,8 @@
 /*
  * @typescript-eslint/eslint-plugin/dist/configs/base.js 里已经添加了 parser 和 plugin，这里无需再写。
  *
- * 使用中发现 TS 的规则和 JS 有冲突，故将 TS 的规则放在 overrides 里。
+ * TS 的规则和 JS 有冲突，故将 TS 的规则放在 overrides 里，详情见：
+ * https://github.com/typescript-eslint/typescript-eslint/issues/1928
  */
 module.exports = {
 	overrides: [{
