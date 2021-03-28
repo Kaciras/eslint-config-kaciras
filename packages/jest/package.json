@@ -1,0 +1,20 @@
+{
+	"name": "@kaciras/eslint-config-jest",
+	"version": "1.1.0",
+	"license": "MIT",
+	"description": "ESLint config for Kaciras",
+	"author": "Kaciras <Kaciras@pm.me>",
+	"engines": {
+		"node": ">=15.11.0"
+	},
+	"main": "index.js",
+	"peerDependencies": {
+		"eslint": "^7.22.0"
+	},
+	"devDependencies": {
+		"eslint": "^7.22.0"
+	},
+	"dependencies": {
+		"eslint-plugin-jest": "^24.3.2"
+	}
+}
