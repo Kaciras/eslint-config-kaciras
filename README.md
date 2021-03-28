@@ -20,6 +20,9 @@ $ npm i -D @kaciras/eslint-config-typescript
 
 // If your project use react
 $ npm i -D @kaciras/eslint-config-react
+
+// If your project use Jest
+$ npm i -D @kaciras/eslint-config-jest
 ```
 
 ## Usage
@@ -27,10 +30,15 @@ $ npm i -D @kaciras/eslint-config-react
 ```javascript
 module.exports = {
     root: true,
-    plugins: [
+    extends: [
        "@kaciras/core",
        "@kaciras/typescript", // for TS project
        "@kaciras/react", // for React project
     ],
+    // for project use Jest
+	overrides: [{
+    	files: require("./jest.config").testMatch,
+		extends: ["@kaciras/jest"],
+    }],
 };
 ```

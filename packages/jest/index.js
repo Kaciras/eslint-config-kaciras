@@ -1,6 +1,8 @@
 /*
+ * 建议将此扩展写在 overrides 里，仅对测试文件使用。
+ *
  * 我想用 overrides ESLint 似乎没有提供在配置文件里获取 cwd 参数的方法。
- * files: require(".jest.config").testMatch,
+ * files: require(".jest.config").testMatch
  *
  * env.jest 已经在插件中设置了，这里无需再写。
  */
