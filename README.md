@@ -36,9 +36,9 @@ module.exports = {
        "@kaciras/react", // for React project
     ],
     // for project use Jest
-	overrides: [{
-    	files: require("./jest.config").testMatch,
-		extends: ["@kaciras/jest"],
+    overrides: [{
+        files: require("./jest.config").testMatch,
+        extends: ["@kaciras/jest"],
     }],
 };
 ```

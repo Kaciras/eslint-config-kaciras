@@ -5,7 +5,7 @@
 	"description": "ESLint config for Kaciras",
 	"author": "Kaciras <Kaciras@pm.me>",
 	"engines": {
-		"node": ">=15.11.0"
+		"node": ">=14"
 	},
 	"main": "index.js",
 	"peerDependencies": {
