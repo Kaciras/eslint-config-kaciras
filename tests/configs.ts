@@ -17,14 +17,82 @@ function getConfig(filename: string, config: Linter.Config) {
 	return eslint.calculateConfigForFile(filename) as Promise<ResolvedConfig>;
 }
 
-it("should add plugins from extends", async () => {
-	const { plugins } = await getConfig("foobar.jsx", {
-		extends: ["./packages/react"],
+function normalize(rule: Linter.RuleEntry) {
+	if (!Array.isArray(rule)) {
+		rule = [rule];
+	}
+	switch (rule[0]) {
+		case 0:
+			rule[0] = "off";
+			break;
+		case 1:
+			rule[0] = "warn";
+			break;
+		case 2:
+			rule[0] = "error";
+			break;
+	}
+	return rule as Linter.RuleLevelAndOptions;
+}
+
+const packages = [
+	{
+		name: "core",
+		plugins: [],
+	},
+	{
+		name: "react",
+		plugins: ["react", "react-hooks"],
+	},
+	{
+		name: "jest",
+		plugins: ["jest"],
+	},
+	{
+		name: "typescript",
+		plugins: ["@typescript-eslint"],
+	},
+];
+
+// 没有使用 describe 包装测试因为 WebStorm 不识别。
+packages.forEach(({ name, plugins }) => {
+
+	/**
+	 * 验证扩展已经添加了相关的插件，无需写 plugins: [...]。
+	 */
+	it("should add plugins from " + name, async () => {
+		const config = await getConfig("foobar.tsx", {
+			extends: "./packages/" + name,
+		});
+
+		assert.strictEqual(config.plugins.length, plugins.length);
+		config.plugins.forEach(p => assert(plugins.includes(p)));
 	});
 
-	assert.strictEqual(plugins.length, 2);
-	assert(plugins.includes("react"));
-	assert(plugins.includes("react-hooks"));
+	/**
+	 * 检测是否存在跟 extends 里重复的规则。
+	 */
+	it("should deduplicate with extends - " + name, async () => {
+		const module = require("../packages/" + name) as Linter.Config;
+
+		const { rules } = await getConfig("foobar.tsx", {
+			extends: module.extends,
+		});
+
+		for (const [k, v] of Object.entries(module.rules ?? {})) {
+			const fromExt = rules[k];
+			if (!fromExt) {
+				continue;
+			}
+			const [level, ...options] = normalize(v!);
+			const [baseLevel, ...baseOptions] = normalize(fromExt);
+
+			if (level !== baseLevel) {
+				continue;
+			}
+			assert.notDeepStrictEqual(baseOptions, options, k);
+		}
+	});
 });
 
 /**
