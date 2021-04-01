@@ -9,6 +9,6 @@
 		"newLine": "LF",
 
 		"esModuleInterop": true,
-		"sourceMap": true,
+		"sourceMap": true
 	}
 }
