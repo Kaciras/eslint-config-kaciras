@@ -21,5 +21,8 @@ module.exports = {
 		// https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
 		"react/jsx-uses-react": "off",
 		"react/react-in-jsx-scope": "off",
+
+		// 属性等号加空格反而不好看。
+		"react/jsx-equals-spacing": ["error", "never"],
 	},
 };

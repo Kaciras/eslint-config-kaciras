@@ -26,6 +26,11 @@ module.exports = {
 				ignoreRestSiblings: true,
 			}],
 
+			// 复杂类型的数组还是用泛型好些，简单的用方括号。
+			"@typescript-eslint/array-type": ["error", {
+				default: "array-simple",
+			}],
+
 			// 不需要，而且会导致一行很长不好看。
 			"@typescript-eslint/explicit-module-boundary-types": "off",
 

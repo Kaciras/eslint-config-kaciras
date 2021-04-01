@@ -33,6 +33,11 @@ module.exports = {
 		// 有时候其它语言写多了，回来会忘，所以启用这个规则。
 		"eqeqeq": "error",
 
+		// 一些永远不要使用的特性。
+		"no-sequences": "error",
+		"no-throw-literal": "error",
+		"no-label-var": "error",
+
 		// JS 的分号是有坑的，不知道为什么默认不启用这规则。
 		"semi": ["error", "always"],
 
