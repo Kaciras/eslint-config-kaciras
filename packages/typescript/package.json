@@ -4,6 +4,15 @@
 	"license": "MIT",
 	"description": "ESLint config for Kaciras",
 	"author": "Kaciras <Kaciras@pm.me>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
+		"directory": "packages/typescript"
+	},
+	"keywords": [
+		"eslint",
+		"typescript"
+	],
 	"engines": {
 		"node": ">=14"
 	},

@@ -17,6 +17,12 @@ function getConfig(filename: string, config: Linter.Config) {
 	return eslint.calculateConfigForFile(filename) as Promise<ResolvedConfig>;
 }
 
+/**
+ * 处理规则对象，统一返回数组形式，等级统一为字符串。
+ *
+ * @param rule 原始规则
+ * @return 标准化后的规则
+ */
 function normalize(rule: Linter.RuleEntry) {
 	if (!Array.isArray(rule)) {
 		rule = [rule];

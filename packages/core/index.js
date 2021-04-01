@@ -10,11 +10,15 @@ module.exports = {
 		sourceType: "module",
 	},
 	rules: {
-		// 很多语言单括号用于 char，这里保持一致使用双括号。
-		"quotes": ["error", "double", { avoidEscape: true }],
+		// 很多语言单括号用于 char 类型，这里保持一致使用双括号。
+		"quotes": ["error", "double", {
+			avoidEscape: true,
+		}],
 
-		// 我就是要用 TAB 缩进，空格都是异端！
-		"indent": ["error", "tab", { SwitchCase: 1 }],
+		// 空格都是异端！
+		"indent": ["error", "tab", {
+			SwitchCase: 1,
+		}],
 
 		// 换行用俩字符确实多余，统一使用 \n
 		"linebreak-style": ["error", "unix"],

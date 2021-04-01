@@ -1,6 +1,8 @@
 # eslint-config-kaciras
 
-ESLint config for Kaciras
+[![Test](https://github.com/Kaciras/eslint-config-kaciras/actions/workflows/test.yml/badge.svg)](https://github.com/Kaciras/eslint-config-kaciras/actions/workflows/test.yml)
+
+ESLint config for Kaciras.
 
 ## Installation
 
@@ -26,6 +28,8 @@ $ npm i -D @kaciras/eslint-config-jest
 ```
 
 ## Usage
+
+Add `@kaciras/*` to the `extends` section of your `.eslintrc` configuration file.
 
 ```javascript
 module.exports = {

@@ -20,7 +20,7 @@ module.exports = {
 			// 该怎么导入我是很清楚的，而且 CJS 模块只能用 require。
 			"@typescript-eslint/no-var-requires": "off",
 
-			// 把多余的参数视为未使用变量是不对的。
+			// 多余的参数不应视为未使用。
 			"@typescript-eslint/no-unused-vars": ["error", {
 				args: "none",
 				ignoreRestSiblings: true,
@@ -31,7 +31,7 @@ module.exports = {
 				default: "array-simple",
 			}],
 
-			// 不需要，而且会导致一行很长不好看。
+			// 不需要，而且会导致一行很长。
 			"@typescript-eslint/explicit-module-boundary-types": "off",
 
 			// TS 并非完美无缺，总有用到 @ts-ignore 的时候。

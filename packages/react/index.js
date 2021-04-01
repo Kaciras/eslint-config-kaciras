@@ -1,6 +1,3 @@
-/*
- * 这些扩展里已经添加了插件，无需再写 plugins: [...]
- */
 module.exports = {
 	extends: [
 		"plugin:react/recommended",
@@ -17,12 +14,12 @@ module.exports = {
 		},
 	},
 	rules: {
-		// React 17 开始使用新的 JSX 转换，无需在文件里导入 React 包
+		// React 17 开始使用新的 JSX 转换，无需再导入 React
 		// https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
 		"react/jsx-uses-react": "off",
 		"react/react-in-jsx-scope": "off",
 
-		// 属性等号加空格反而不好看。
+		// 属性等号加空格不好看。
 		"react/jsx-equals-spacing": ["error", "never"],
 	},
 };
