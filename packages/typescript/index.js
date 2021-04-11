@@ -31,6 +31,9 @@ module.exports = {
 				default: "array-simple",
 			}],
 
+			// 习惯加标点了，保持一致吧。
+			"@typescript-eslint/member-delimiter-style": "error",
+
 			// 不需要，而且会导致一行很长。
 			"@typescript-eslint/explicit-module-boundary-types": "off",
 
