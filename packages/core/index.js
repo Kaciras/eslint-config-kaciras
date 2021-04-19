@@ -32,7 +32,7 @@ module.exports = {
 
 		// 其它一些标识符前后的空格
 		"object-curly-spacing": ["error", "always"],
-		"space-before-blocks":"error",
+		"space-before-blocks": "error",
 
 		// 我应该不会这么写吧，不过还是加上以免意外。
 		"no-array-constructor": "error",

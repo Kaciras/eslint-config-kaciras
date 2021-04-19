@@ -14,8 +14,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          submodules: true
 
       - run: npm i -g pnpm
 
