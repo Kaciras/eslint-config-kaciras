@@ -30,9 +30,14 @@ module.exports = {
 			asyncArrow: "always",
 		}],
 
-		// 其它一些标识符前后的空格
+		// 单行对象大括号内加一个空格
 		"object-curly-spacing": ["error", "always"],
+
+		// 代码块与前面的标识符之间加一个空格
 		"space-before-blocks": "error",
+
+		// 对象键值之间的冒号后面加一个空格
+		"key-spacing": "error",
 
 		// 我应该不会这么写吧，不过还是加上以免意外。
 		"no-array-constructor": "error",
