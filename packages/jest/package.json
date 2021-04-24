@@ -18,10 +18,10 @@
 	},
 	"main": "index.js",
 	"peerDependencies": {
-		"eslint": "^7.22.0"
+		"eslint": ">=7"
 	},
 	"devDependencies": {
-		"eslint": "^7.24.0"
+		"eslint": "^7.25.0"
 	},
 	"dependencies": {
 		"eslint-plugin-jest": "^24.3.5"
