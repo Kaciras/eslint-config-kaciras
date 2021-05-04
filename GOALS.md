@@ -10,13 +10,15 @@
 
 # 不使用的插件
 
-以下第三方插件经过了评价，没有我需要的规则：
+以下第三方插件经过了评价，最终决定不使用：
 
-- [eslint-plugin-promise](https://github.com/xjamundx/eslint-plugin-promise) 5.1.0
+- [eslint-plugin-promise](https://github.com/xjamundx/eslint-plugin-promise) 5.1.0，没有需要的规则。
 
-- [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node) 11.1.0
+- [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node) 11.1.0，没有需要的规则。
 
-- [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) 2.22.1
+- [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) 2.22.1，没有需要的规则。
+
+- [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) 31.0.0，很有用，但它基于 JS 而不是 TS，缺乏类型信息导致误报太多。
 
 # 可能添加的规则
 
