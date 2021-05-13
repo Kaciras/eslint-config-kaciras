@@ -56,5 +56,30 @@ module.exports = {
 
 		// 多行元素末尾一律加逗号，便于删除和调整顺序。
 		"comma-dangle": ["error", "always-multiline"],
+
+		// window 对象上一些容易混淆的成员，要求必须以 `window.*` 来调用。
+		//
+		// 属性列表参考了：
+		// https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals
+		//
+		// 这里比 confusing-browser-globals 的规则少些，删除了过时的 API 因为 IDE 会提示，还有些常用的也删了。
+		"no-restricted-globals": ["error",
+			"top", "length", "name", "parent", "status",
+			"addEventListener", "removeEventListener",
+			"close", "closed",
+			"focus", "onfocus", "blur", "onblur",
+			"open", "opener",
+			"onload", "onunload",
+			"frames", "frameElement",
+			"innerHeight", "innerWidth",
+			"outerWidth", "outerHeight",
+			"pageXOffset", "pageYOffset",
+			"screenLeft", "screenTop", "screenX", "screenY",
+			"moveBy", "moveTo",
+			"resizeBy", "resizeTo", "onresize",
+			"scroll", "scrollBy", "scrollTo", "scrollX", "scrollY",
+			"defaultStatus",
+			"find", "print", "confirm", "stop",
+		],
 	},
 };
