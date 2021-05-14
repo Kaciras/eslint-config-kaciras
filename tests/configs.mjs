@@ -1,20 +1,18 @@
 import assert from "assert";
 import { ESLint, Linter } from "eslint";
 
-type ResolvedConfig = Required<Linter.Config>;
-
 /**
  * 计算应用于指定文件的规则，展开 extends 和 overrides 属性。
  *
  * @param filename 文件名
  * @param config 规则
  */
-function getConfig(filename: string, config: Linter.Config) {
+function getConfig(filename, config) {
 	const eslint = new ESLint({
 		useEslintrc: false,
 		overrideConfig: config,
 	});
-	return eslint.calculateConfigForFile(filename) as Promise<ResolvedConfig>;
+	return eslint.calculateConfigForFile(filename);
 }
 
 /**
@@ -23,7 +21,7 @@ function getConfig(filename: string, config: Linter.Config) {
  * @param rule 原始规则
  * @return 标准化后的规则
  */
-function normalize(rule: Linter.RuleEntry) {
+function normalize(rule) {
 	if (!Array.isArray(rule)) {
 		rule = [rule];
 	}
@@ -38,7 +36,7 @@ function normalize(rule: Linter.RuleEntry) {
 			rule[0] = "error";
 			break;
 	}
-	return rule as Linter.RuleLevelAndOptions;
+	return rule;
 }
 
 const packages = [
@@ -79,7 +77,7 @@ packages.forEach(({ name, plugins }) => {
 	 * 检测是否存在跟 extends 里重复的规则。
 	 */
 	it("should deduplicate with extends - " + name, async () => {
-		const module = require("../packages/" + name) as Linter.Config;
+		const module = await import(`../packages/${name}/index.js`);
 
 		const { rules } = await getConfig("foobar.tsx", {
 			extends: module.extends,
@@ -90,7 +88,7 @@ packages.forEach(({ name, plugins }) => {
 			if (!fromExt) {
 				continue;
 			}
-			const [level, ...options] = normalize(v!);
+			const [level, ...options] = normalize(v);
 			const [baseLevel, ...baseOptions] = normalize(fromExt);
 
 			if (level !== baseLevel) {
