@@ -23,14 +23,14 @@ module.exports = {
 		// 换行用俩字符确实多余，统一使用 \n
 		"linebreak-style": ["error", "unix"],
 
-		// 函数名和括号见不加空格，关键字与括号间加。
+		// 函数名和括号间不加空格，关键字与括号间加。
 		"space-before-function-paren": ["error", {
 			anonymous: "always",
 			named: "never",
 			asyncArrow: "always",
 		}],
 
-		// 单行对象大括号内加一个空格
+		// 单行对象的大括号内加一个空格
 		"object-curly-spacing": ["error", "always"],
 
 		// 代码块与前面的标识符之间加一个空格
@@ -51,18 +51,16 @@ module.exports = {
 		"no-throw-literal": "error",
 		"no-label-var": "error",
 
-		// JS 的分号是有坑的，不知道为什么默认不启用这规则。
+		// 不加分号是有坑的，不知道为什么默认不启用这规则。
 		"semi": ["error", "always"],
 
 		// 多行元素末尾一律加逗号，便于删除和调整顺序。
 		"comma-dangle": ["error", "always-multiline"],
 
 		// window 对象上一些容易混淆的成员，要求必须以 `window.*` 来调用。
-		//
-		// 属性列表参考了：
+		// 该列表参考了：
 		// https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals
-		//
-		// 这里比 confusing-browser-globals 的规则少些，删除了过时的 API 因为 IDE 会提示，还有些常用的也删了。
+		// 这里比它的规则少些，删除了过时的 API 因为 IDE 会提示，还有些常用的也删了。
 		"no-restricted-globals": ["error",
 			"top", "length", "name", "parent", "status",
 			"addEventListener", "removeEventListener",
@@ -71,13 +69,15 @@ module.exports = {
 			"open", "opener",
 			"onload", "onunload",
 			"frames", "frameElement",
-			"innerHeight", "innerWidth",
+			"innerWidth", "innerHeight",
 			"outerWidth", "outerHeight",
 			"pageXOffset", "pageYOffset",
-			"screenLeft", "screenTop", "screenX", "screenY",
+			"screenLeft", "screenTop",
+			"screenX", "screenY",
 			"moveBy", "moveTo",
 			"resizeBy", "resizeTo", "onresize",
-			"scroll", "scrollBy", "scrollTo", "scrollX", "scrollY",
+			"scroll", "scrollBy", "scrollTo",
+			"scrollX", "scrollY",
 			"defaultStatus",
 			"find", "print", "confirm", "stop",
 		],

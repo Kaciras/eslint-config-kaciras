@@ -9,22 +9,22 @@ ESLint config for Kaciras.
 You'll first need to install [ESLint](http://eslint.org):
 
 ```
-$ npm i eslint
+npm i eslint
 ```
 
 Next, install config packages:
 
 ```
-$ npm i -D @kaciras/eslint-config-core
+npm i -D @kaciras/eslint-config-core
 
 // If your project use typescript
-$ npm i -D @kaciras/eslint-config-typescript
+npm i -D @kaciras/eslint-config-typescript
 
 // If your project use react
-$ npm i -D @kaciras/eslint-config-react
+npm i -D @kaciras/eslint-config-react
 
 // If your project use Jest
-$ npm i -D @kaciras/eslint-config-jest
+npm i -D @kaciras/eslint-config-jest
 ```
 
 ## Usage
@@ -41,7 +41,7 @@ module.exports = {
     ],
     // for project use Jest
     overrides: [{
-        files: require("./jest.config").testMatch,
+        files: "<test match pattern>",
         extends: ["@kaciras/jest"],
     }],
 };
