@@ -2,7 +2,7 @@
 
 [![Test](https://github.com/Kaciras/eslint-config-kaciras/actions/workflows/test.yml/badge.svg)](https://github.com/Kaciras/eslint-config-kaciras/actions/workflows/test.yml)
 
-ESLint config for Kaciras.
+Kaciras JavaScript style.
 
 ## Installation
 
@@ -17,13 +17,13 @@ Next, install config packages:
 ```
 npm i -D @kaciras/eslint-config-core
 
-// If your project use typescript
+// If the project uses typescript
 npm i -D @kaciras/eslint-config-typescript
 
-// If your project use react
+// If the project uses react
 npm i -D @kaciras/eslint-config-react
 
-// If your project use Jest
+// If the project uses Jest
 npm i -D @kaciras/eslint-config-jest
 ```
 
@@ -39,7 +39,7 @@ module.exports = {
        "@kaciras/typescript", // for TS project
        "@kaciras/react", // for React project
     ],
-    // for project use Jest
+    // for project uses Jest
     overrides: [{
         files: "<test match pattern>",
         extends: ["@kaciras/jest"],

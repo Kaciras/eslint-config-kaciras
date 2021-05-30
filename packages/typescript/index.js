@@ -1,7 +1,7 @@
 /*
  * @typescript-eslint/eslint-plugin/dist/configs/base.js 里已经添加了 parser 和 plugin，这里无需再写。
  *
- * TS 的规则和 JS 有冲突，故将 TS 的规则放在 overrides 里，详情见：
+ * TS 的规则和 JS 有冲突，故需要将 TS 的规则放在 overrides 里，详情见：
  * https://github.com/typescript-eslint/typescript-eslint/issues/1928
  */
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
 			// TS 并非完美无缺，总有用到 @ts-ignore 的时候。
 			"@typescript-eslint/ban-ts-comment": "off",
 
-			// 空函数有没有用我自己会检查的，不需要提醒。
+			// 空函数我自己会检查的，不需要提醒。
 			"@typescript-eslint/no-empty-function": "off",
 		},
 	}],

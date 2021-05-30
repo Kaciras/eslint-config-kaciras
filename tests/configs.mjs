@@ -58,7 +58,7 @@ const packages = [
 	},
 ];
 
-// 没有使用 describe 包装测试因为 WebStorm 不识别。
+// 没有使用 describe 或 for-of 因为 WebStorm 不识别。
 packages.forEach(({ name, plugins }) => {
 
 	/**

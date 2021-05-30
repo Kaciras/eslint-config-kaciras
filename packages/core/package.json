@@ -2,7 +2,7 @@
 	"name": "@kaciras/eslint-config-core",
 	"version": "1.5.0",
 	"license": "MIT",
-	"description": "ESLint config for Kaciras",
+	"description": "Kaciras JavaScript style",
 	"author": "Kaciras <Kaciras@pm.me>",
 	"repository": {
 		"type": "git",
