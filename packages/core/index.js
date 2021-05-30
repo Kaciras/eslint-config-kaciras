@@ -46,6 +46,10 @@ module.exports = {
 		// 有时候其它语言写多了，回来会忘，所以启用这个规则。
 		"eqeqeq": "error",
 
+		// 永远不要使用 for-in，这个遗留的糟粕已经被其他写法取代了。
+		// 同样 Python 写多了可能会忘。
+		"no-restricted-syntax": ["error", "ForInStatement"],
+
 		// 一些永远不要使用的特性。
 		"no-sequences": "error",
 		"no-throw-literal": "error",
