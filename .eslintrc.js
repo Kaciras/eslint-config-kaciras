@@ -2,6 +2,7 @@
 module.exports = {
 	root: true,
 	extends: [
+		"plugin:eslint-plugin/recommended",
 		"./packages/core",
 		"./packages/typescript",
 	],
