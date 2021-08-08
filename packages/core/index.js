@@ -64,9 +64,10 @@ module.exports = {
 		// window 对象上一些容易混淆的成员，要求必须以 `window.*` 来调用。
 		// 该列表参考了：
 		// https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals
-		// 这里比它的规则少些，删除了过时的 API 因为 IDE 会提示，还有些常用的也删了。
+		// 这里比它的规则少些，删除了一些常用的。
 		"no-restricted-globals": ["error",
-			"top", "length", "name", "parent", "status",
+			"event", "name", "external",
+			"top", "length", "parent",
 			"addEventListener", "removeEventListener",
 			"close", "closed",
 			"focus", "onfocus", "blur", "onblur",
@@ -82,7 +83,7 @@ module.exports = {
 			"resizeBy", "resizeTo", "onresize",
 			"scroll", "scrollBy", "scrollTo",
 			"scrollX", "scrollY",
-			"defaultStatus",
+			"status", "defaultStatus",
 			"find", "print", "confirm", "stop",
 		],
 	},
