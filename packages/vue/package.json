@@ -1,0 +1,33 @@
+{
+	"name": "@kaciras/eslint-config-vue",
+	"version": "1.6.0",
+	"license": "MIT",
+	"description": "Kaciras JavaScript style",
+	"author": "Kaciras <Kaciras@pm.me>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
+		"directory": "packages/vue"
+	},
+	"keywords": [
+		"eslint",
+		"vue",
+		"typescript"
+	],
+	"engines": {
+		"node": ">=14"
+	},
+	"main": "index.js",
+	"peerDependencies": {
+		"eslint": ">=7"
+	},
+	"optionalDependencies": {
+		"@kaciras/eslint-config-typescript": "^1.6.0"
+	},
+	"devDependencies": {
+		"eslint": "^7.31.0"
+	},
+	"dependencies": {
+		"eslint-plugin-vue": "^7.16.0"
+	}
+}
