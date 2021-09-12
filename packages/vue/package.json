@@ -29,5 +29,8 @@
 	},
 	"dependencies": {
 		"eslint-plugin-vue": "^7.17.0"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
