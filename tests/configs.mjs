@@ -56,6 +56,10 @@ const packages = [
 		name: "typescript",
 		plugins: ["@typescript-eslint"],
 	},
+	{
+		name: "vue",
+		plugins: ["vue"],
+	},
 ];
 
 // 没有使用 describe 或 for-of 因为 WebStorm 不识别。
@@ -114,4 +118,27 @@ it("should avoid conflict with typescript", async () => {
 	const linter = new Linter();
 	const msg = linter.verify(code, config, "foobar.js");
 	assert.strictEqual(msg.length, 0);
+});
+
+describe("vue + typescript", () => {
+	const config = {
+		extends: [
+			"./packages/core",
+			"./packages/typescript",
+			"./packages/vue/typescript",
+		],
+		env: { es2021: true },
+	};
+
+	it("should work with SFC", async () => {
+		const resolved = await getConfig("sfc.vue", config);
+		assert(resolved.parser.includes("vue-eslint-parser"));
+		assert.strictEqual(resolved.parserOptions.parser, "@typescript-eslint/parser");
+	});
+
+	it("should work with ts file", async () => {
+		const resolved = await getConfig("code.ts", config);
+		assert(resolved.parser.includes("vue-eslint-parser"));
+		assert.strictEqual(resolved.parserOptions.parser, "@typescript-eslint/parser");
+	});
 });
