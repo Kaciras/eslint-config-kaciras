@@ -1,5 +1,6 @@
 /*
- * 建议将此扩展写在 overrides 里，仅对测试文件使用：
+ * 因为无法在 eslint 的配置里获取 jest 的配置，所以没法像 ts 那样直接用。
+ * 建议将此扩展写在 overrides 里，仅对测试文件生效：
  * {
  *     overrides: [{
  *         files: require("./jest.config").testMatch,
