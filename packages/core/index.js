@@ -7,6 +7,7 @@ module.exports = {
 		es2021: true,
 	},
 	parserOptions: {
+		ecmaVersion: "latest",
 		sourceType: "module",
 	},
 	rules: {
