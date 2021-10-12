@@ -27,6 +27,10 @@ module.exports = {
 		// 空函数我自己会检查的，不需要提醒。
 		"@typescript-eslint/no-empty-function": "off",
 
+		// 多行总是加上末尾的逗号，一来整齐些，二是调整顺序更方便。
+		// TS 多了一些情况比如枚举、泛型，要单独配置下。
+		"@typescript-eslint/comma-dangle": ["error", "always-multiline"],
+
 		// 没有用到的参数也不要省略，保持签名的一致性。
 		"@typescript-eslint/no-unused-vars": ["error", {
 			args: "none",
