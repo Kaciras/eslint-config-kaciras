@@ -25,6 +25,9 @@ npm i -D @kaciras/eslint-config-react
 
 // If the project uses Jest
 npm i -D @kaciras/eslint-config-jest
+
+// If the project uses Vue
+npm i -D @kaciras/eslint-config-vue
 ```
 
 ## Usage
@@ -33,16 +36,19 @@ Add `@kaciras/*` to the `extends` section of your `.eslintrc` configuration file
 
 ```javascript
 module.exports = {
-    root: true,
-    extends: [
-       "@kaciras/core",
-       "@kaciras/typescript", // for TS project
-       "@kaciras/react", // for React project
-    ],
-    // for project uses Jest
-    overrides: [{
-        files: "<test match pattern>",
-        extends: ["@kaciras/jest"],
-    }],
+	root: true,
+	extends: [
+		"@kaciras/core",
+		"@kaciras/typescript", // for TS project
+		"@kaciras/react", // for React project
+
+		"@kaciras/vue", // for Vue project or
+		"@kaciras/vue/typescript", // for Vue & Typescript
+	],
+	// for project uses Jest
+	overrides: [{
+		files: "<test match pattern>",
+		extends: ["@kaciras/jest"],
+	}],
 };
 ```
