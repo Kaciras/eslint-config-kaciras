@@ -6,9 +6,9 @@
 		"publish": "lerna publish"
 	},
 	"devDependencies": {
-		"eslint": "^8.0.0",
-		"eslint-plugin-eslint-plugin": "^3.6.1",
+		"eslint": "^8.0.1",
+		"eslint-plugin-eslint-plugin": "^4.0.1",
 		"lerna": "^4.0.0",
-		"mocha": "^9.1.2"
+		"mocha": "^9.1.3"
 	}
 }
