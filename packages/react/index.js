@@ -12,4 +12,8 @@ module.exports = {
 			version: "detect",
 		},
 	},
+	rules: {
+		// 都是动态页面的时代了，默认的 submit 基本用不到，还容易漏。
+		"react/button-has-type": "error",
+	},
 };
