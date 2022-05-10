@@ -2,12 +2,14 @@
 module.exports = {
 	root: true,
 	extends: [
-		"plugin:eslint-plugin/recommended",
 		"./packages/core",
 		"./packages/typescript",
 	],
 	env: {
 		node: true,
+	},
+	rules: {
+		"@kaciras/import-group-sort": "warn",
 	},
 	overrides: [
 		{

@@ -2,6 +2,7 @@ module.exports = {
 	extends: [
 		"eslint:recommended",
 	],
+	plugins: ["@kaciras"],
 	env: {
 		// 这个包含了 parserOptions.ecmaVersion: 12
 		es2021: true,

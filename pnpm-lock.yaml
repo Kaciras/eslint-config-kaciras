@@ -4,17 +4,22 @@ importers:
 
   .:
     specifiers:
+      '@kaciras/eslint-plugin': workspace:^
       eslint: ^8.15.0
       eslint-plugin-eslint-plugin: ^4.1.0
       mocha: ^10.0.0
     devDependencies:
+      '@kaciras/eslint-plugin': link:plugin
       eslint: 8.15.0
       eslint-plugin-eslint-plugin: 4.1.0_eslint@8.15.0
       mocha: 10.0.0
 
   packages/core:
     specifiers:
+      '@kaciras/eslint-plugin': workspace:^
       eslint: ^8.15.0
+    dependencies:
+      '@kaciras/eslint-plugin': link:../../plugin
     devDependencies:
       eslint: 8.15.0
 
@@ -62,6 +67,12 @@ importers:
       '@kaciras/eslint-config-typescript': link:../typescript
     devDependencies:
       eslint: 8.15.0
+
+  plugin:
+    specifiers:
+      is-builtin-module: ^3.1.0
+    dependencies:
+      is-builtin-module: 3.1.0
 
 packages:
 
@@ -435,6 +446,11 @@ packages:
   /browser-stdout/1.3.1:
     resolution: {integrity: sha512-qhAVI1+Av2X7qelOfAIYwXONood6XlZE/fXaBSmW/T5SzLAmCgzi+eiWE7fUvbHaeNBQH13UftjpXxsfLkMpgw==}
     dev: true
+
+  /builtin-modules/3.2.0:
+    resolution: {integrity: sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==}
+    engines: {node: '>=6'}
+    dev: false
 
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
@@ -1066,6 +1082,13 @@ packages:
     dependencies:
       call-bind: 1.0.2
       has-tostringtag: 1.0.0
+    dev: false
+
+  /is-builtin-module/3.1.0:
+    resolution: {integrity: sha512-OV7JjAgOTfAFJmHZLvpSTb4qi0nIILDV1gWPYDnDJUTNFM5aGlRAhk4QcT8i7TuAleeEV5Fdkqn3t4mS+Q11fg==}
+    engines: {node: '>=6'}
+    dependencies:
+      builtin-modules: 3.2.0
     dev: false
 
   /is-callable/1.2.4:
