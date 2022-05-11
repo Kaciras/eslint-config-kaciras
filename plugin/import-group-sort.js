@@ -4,12 +4,18 @@ const BUILTIN = 0;
 const MODULES = 1;
 const LOCAL = 2;
 
-// this: node
-function rerange(imports, fixer) {
+// this: sourceCode
+function* sort(node, imports, fixer) {
+	const text = this.getText(node);
+	const k = kindOf(node);
+	const f = imports.find(i => kindOf(i) > k);
 
+	yield fixer.remove(node);
+	yield fixer.insertTextBefore(f, text);
 }
 
-function kindOf(name) {
+function kindOf(node) {
+	const name = node.source.value;
 	if (isBuiltin(name)) {
 		return BUILTIN;
 	}
@@ -17,34 +23,41 @@ function kindOf(name) {
 }
 
 function check(imports) {
-	let group = BUILTIN;
+	const code = this.getSourceCode();
+
+	let current = BUILTIN;
 	for (const node of imports) {
-		const k = kindOf(node.source.value);
-		if (k < group) {
+		const k = kindOf(node);
+
+		if (k < current) {
 			this.report({
 				node,
-				message: "test",
-				fix: rerange.bind(node, imports),
+				message: "incorrect import order",
+				fix: sort.bind(code, node, imports),
 			});
 		} else {
-			group = k;
+			current = k;
 		}
 	}
 }
 
 /**
+ * 将顶层的导入语句按照模块的位置排序，注意该规则不符合 ESLint 的规范，
+ * 因为导入可能有副作用，比如 CSS 文件的导入顺序关系到优先级，请慎用。
+ *
+ * 默认的顺序是：Node 内置模块 -> 三方包 -> 本地模块。
+ *
  * @type {import('eslint').Rule.RuleModule}
  */
 module.exports = {
 	meta: {
-		type: "suggestion",
+		type: "layout",
+		fixable: "code",
 		docs: {
 			description: "sort imports",
-			category: "Suggestions",
-			recommended: true,
+			recommended: false,
 			url: "https://eslint.org/docs/rules/no-extra-semi",
 		},
-		fixable: "code",
 	},
 	create(context) {
 		const imports = [];
