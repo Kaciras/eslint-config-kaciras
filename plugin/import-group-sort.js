@@ -6,12 +6,17 @@ const LOCAL = 2;
 
 // this: sourceCode
 function* sort(node, imports, fixer) {
-	const text = this.getText(node);
+	const text = this.getText();
 	const k = kindOf(node);
 	const f = imports.find(i => kindOf(i) > k);
 
-	yield fixer.remove(node);
-	yield fixer.insertTextBefore(f, text);
+	const lf = text.indexOf("\n", node.end) + 1;
+	const end = lf === 0 ? node.end : lf;
+
+	const line = text.slice(node.start, end);
+
+	yield fixer.removeRange([node.start, end]);
+	yield fixer.insertTextBefore(f, line);
 }
 
 function kindOf(node) {
@@ -22,13 +27,19 @@ function kindOf(node) {
 	return name.startsWith(".") ? LOCAL : MODULES;
 }
 
-function check(imports) {
+// this: Context
+function check(program) {
 	const code = this.getSourceCode();
+	const imports = [];
 
 	let current = BUILTIN;
-	for (const node of imports) {
-		const k = kindOf(node);
+	for (const node of program.body) {
+		if (node.type !== "ImportDeclaration") {
+			break;
+		}
+		imports.push(node);
 
+		const k = kindOf(node);
 		if (k < current) {
 			this.report({
 				node,
@@ -56,14 +67,9 @@ module.exports = {
 		docs: {
 			description: "sort imports",
 			recommended: false,
-			url: "https://eslint.org/docs/rules/no-extra-semi",
 		},
 	},
 	create(context) {
-		const imports = [];
-		return {
-			ImportDeclaration: node => imports.push(node),
-			"Program:exit": check.bind(context, imports),
-		};
+		return { Program: check.bind(context) };
 	},
 };
