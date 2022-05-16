@@ -1,7 +1,9 @@
-const isBuiltin = require("is-builtin-module");
+const { builtinModules } = require("module");
+
+const builtins = new Set(builtinModules);
 
 const BUILTIN = 0;
-const MODULES = 1;
+const DEPENDENCY = 1;
 const LOCAL = 2;
 
 // this: sourceCode
@@ -10,21 +12,42 @@ function* sort(node, imports, fixer) {
 	const k = kindOf(node);
 	const f = imports.find(i => kindOf(i) > k);
 
-	const lf = text.indexOf("\n", node.end) + 1;
-	const end = lf === 0 ? node.end : lf;
+	const lf = text.indexOf("\n", node.range[1]) + 1;
+	const end = lf === 0 ? node.range[1] : lf;
+	const line = text.slice(node.range[0], end);
 
-	const line = text.slice(node.start, end);
-
-	yield fixer.removeRange([node.start, end]);
+	yield fixer.removeRange([node.range[0], end]);
 	yield fixer.insertTextBefore(f, line);
 }
 
 function kindOf(node) {
-	const name = node.source.value;
-	if (isBuiltin(name)) {
-		return BUILTIN;
+	let [protocol, path] = node.source.value.split(":", 2);
+	if (path === undefined) {
+		[protocol, path] = [null, protocol];
 	}
-	return name.startsWith(".") ? LOCAL : MODULES;
+
+	switch (protocol) {
+		case "node":
+			return BUILTIN;
+		case "file":
+		case "data":
+			return LOCAL;
+		case null:
+			break;
+		default:
+			return DEPENDENCY;
+	}
+
+	if (path.startsWith(".")) {
+		return LOCAL;
+	}
+
+	const slashIndex = path.indexOf("/");
+	const root = slashIndex === -1
+		? path
+		: path.slice(0, slashIndex);
+
+	return builtins.has(root) ? BUILTIN : DEPENDENCY;
 }
 
 // this: Context

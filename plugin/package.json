@@ -7,9 +7,6 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Kaciras/eslint-config-kaciras",
-		"directory": "plugins"
-	},
-	"dependencies": {
-		"is-builtin-module": "^3.1.0"
+		"directory": "plugin"
 	}
 }
