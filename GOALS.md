@@ -19,11 +19,3 @@
 - [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) 2.22.1，没有需要的规则。
 
 - [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) 31.0.0，它基于 JS 而不是 TS，缺乏类型信息导致误报太多。
-
-# 可能添加的规则
-
-想到了一些可能有用的规则，但尚未实现，在此记录一下。
-
-## 导入排序
-
-我习惯将导入部分按照`内置模块`-`第三方库`-`本项目的模块`顺序排列。 但由于模块可能有副作用，导入顺序会对结果产生影响，所以没有实现这一功能。

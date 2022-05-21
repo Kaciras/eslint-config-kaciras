@@ -20,6 +20,13 @@ function* sort(node, imports, fixer) {
 	yield fixer.insertTextBefore(f, line);
 }
 
+/**
+ * 获取导入语句的优先级（模块类型），支持完整的 URL。
+ *
+ * @param node Import 语句的 AST 节点
+ * @returns {number} 优先级，越小越靠前
+ * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
+ */
 function kindOf(node) {
 	let [protocol, path] = node.source.value.split(":", 2);
 	if (path === undefined) {
@@ -54,8 +61,8 @@ function kindOf(node) {
 function check(program) {
 	const code = this.getSourceCode();
 	const imports = [];
-
 	let current = BUILTIN;
+
 	for (const node of program.body) {
 		if (node.type !== "ImportDeclaration") {
 			break;
@@ -79,6 +86,7 @@ function check(program) {
  * 将顶层的导入语句按照模块的位置排序，注意该规则不符合 ESLint 的规范，
  * 因为导入可能有副作用，比如 CSS 文件的导入顺序关系到优先级，请慎用。
  *
+ * 使用了别名的导入暂不支持自定义，一律视为三方包。
  * 默认的顺序是：Node 内置模块 -> 三方包 -> 本地模块。
  *
  * @type {import('eslint').Rule.RuleModule}
