@@ -44,5 +44,8 @@ module.exports = {
 
 		// 习惯加标点了，保持一致吧。
 		"@typescript-eslint/member-delimiter-style": "error",
+
+		// 不要把 non-null 的感叹号跟等号连用。
+		"@typescript-eslint/no-confusing-non-null-assertion": "error",
 	},
 };
