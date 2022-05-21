@@ -42,7 +42,7 @@ function normalize(rule) {
 const packages = [
 	{
 		name: "core",
-		plugins: [],
+		plugins: ["@kaciras"],
 	},
 	{
 		name: "react",
