@@ -6,6 +6,12 @@ const BUILTIN = 0;
 const DEPENDENCY = 1;
 const LOCAL = 2;
 
+const names = [
+	"builtin modules",
+	"node modules",
+	"local files",
+];
+
 // this: sourceCode
 function* sort(node, imports, fixer) {
 	const text = this.getText();
@@ -61,7 +67,7 @@ function kindOf(node) {
 function check(program) {
 	const code = this.getSourceCode();
 	const imports = [];
-	let current = BUILTIN;
+	let prev = BUILTIN;
 
 	for (const node of program.body) {
 		if (node.type !== "ImportDeclaration") {
@@ -70,14 +76,14 @@ function check(program) {
 		imports.push(node);
 
 		const k = kindOf(node);
-		if (k < current) {
+		if (k < prev) {
 			this.report({
 				node,
-				message: "incorrect import order",
+				message: `${names[k]} should before ${names[prev]}`,
 				fix: sort.bind(code, node, imports),
 			});
 		} else {
-			current = k;
+			prev = k;
 		}
 	}
 }
