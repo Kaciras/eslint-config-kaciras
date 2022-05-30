@@ -2,6 +2,14 @@ const { builtinModules } = require("module");
 
 const builtins = new Set(builtinModules);
 
+const TYPE = 0;
+const VALUE = 100;
+
+const kinds = [
+	"type import",
+	"value import",
+];
+
 const BUILTIN = 0;
 const DEPENDENCY = 1;
 const LOCAL = 2;
@@ -15,8 +23,8 @@ const names = [
 // this: sourceCode
 function* sort(node, imports, fixer) {
 	const text = this.getText();
-	const k = kindOf(node);
-	const f = imports.find(i => kindOf(i) > k);
+	const k = getWeight(node);
+	const f = imports.find(i => getWeight(i) > k);
 
 	const lf = text.indexOf("\n", node.range[1]) + 1;
 	const end = lf === 0 ? node.range[1] : lf;
@@ -33,7 +41,7 @@ function* sort(node, imports, fixer) {
  * @returns {number} 优先级，越小越靠前
  * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
  */
-function kindOf(node) {
+function weightOfPath(node) {
 	let [protocol, path] = node.source.value.split(":", 2);
 	if (path === undefined) {
 		[protocol, path] = [null, protocol];
@@ -63,6 +71,11 @@ function kindOf(node) {
 	return builtins.has(root) ? BUILTIN : DEPENDENCY;
 }
 
+// importKind 是 TypeScript parser 添加的额外属性。
+function getWeight(node) {
+	return (node.importKind !== "type" ? VALUE : TYPE) + weightOfPath(node);
+}
+
 // this: Context
 function check(program) {
 	const code = this.getSourceCode();
@@ -75,15 +88,21 @@ function check(program) {
 		}
 		imports.push(node);
 
-		const k = kindOf(node);
-		if (k < prev) {
+		const w = getWeight(node);
+		if (w < prev) {
+			let message;
+			if (prev - w > 10) {
+				message = `${kinds[Math.floor(w / 100)]} should before ${kinds[Math.floor(prev / 100)]}`;
+			} else {
+				message = `${names[w % 100]} should before ${names[prev % 100]}`;
+			}
 			this.report({
 				node,
-				message: `${names[k]} should before ${names[prev]}`,
+				message,
 				fix: sort.bind(code, node, imports),
 			});
 		} else {
-			prev = k;
+			prev = w;
 		}
 	}
 }
