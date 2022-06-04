@@ -13,6 +13,7 @@ const testerJS = new RuleTester({
 	},
 });
 
+// TODO: import assertion is only a stage 3 proposal, test it when ESLint supported.
 testerJS.run("import-group-sort", rule, {
 	valid: [
 		join(
@@ -99,6 +100,26 @@ testerJS.run("import-group-sort", rule, {
 			),
 			output: join(
 				"import 'node:path';",
+				"import 'eslint';",
+			),
+			errors: ["builtin modules should before node modules"],
+		},
+		{
+			code: "import 'eslint';import 'node:path';",
+			output: "import 'node:path';import 'eslint';",
+			errors: ["builtin modules should before node modules"],
+		},
+		{
+			code: join(
+				"import 'process';",
+				"",
+				"import 'eslint';",
+				"import 'node:path';",
+			),
+			output: join(
+				"import 'process';",
+				"import 'node:path';",
+				"",
 				"import 'eslint';",
 			),
 			errors: ["builtin modules should before node modules"],

@@ -58,18 +58,41 @@ const layers = [
 	},
 ];
 
-// this: sourceCode
+/**
+ * 获取节点所在的所有行的范围，即将 range[1] 扩展到行尾。
+ *
+ * 该函数无法处理的一些情况：
+ * 1）import 所在的行有多个语句。
+ * 2）末尾有注释且未在本行内结束。
+ *
+ * 这些都是不规范的代码，本身就不该出现，所以 OK。
+ *
+ * @param text 源代码文本
+ * @param node 节点
+ * @return {[number,number]} 开始-结束二元组
+ */
+function getWholeLines(text, node) {
+	const [start, end] = node.range;
+	const lf = text.indexOf("\n", end) + 1;
+	return lf === 0 ? node.range : [start, lf];
+}
+
+// this: SourceCode
 function* sort(node, imports, fixer) {
 	const text = this.getText();
 	const k = getWeight(node);
-	const f = imports.find(i => compare(getWeight(i), k).result === 1);
+	const i = imports.findIndex(i => compare(getWeight(i), k).result === 1);
 
-	const lf = text.indexOf("\n", node.range[1]) + 1;
-	const end = lf === 0 ? node.range[1] : lf;
-	const line = text.slice(node.range[0], end);
+	const srcRange = getWholeLines(text, node);
+	const line = text.slice(...srcRange);
 
-	yield fixer.removeRange([node.range[0], end]);
-	yield fixer.insertTextBefore(f, line);
+	yield fixer.removeRange(srcRange);
+	if (i === 0) {
+		yield fixer.insertTextBefore(imports[i], line);
+	} else {
+		const r = getWholeLines(text, imports[i - 1]);
+		yield fixer.insertTextAfterRange(r, line);
+	}
 }
 
 function getWeight(node) {
