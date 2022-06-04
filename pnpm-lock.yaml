@@ -69,7 +69,13 @@ importers:
       eslint: 8.17.0
 
   plugin:
-    specifiers: {}
+    specifiers:
+      eslint: ^8.17.0
+      eslint-utils: ^3.0.0
+    dependencies:
+      eslint-utils: 3.0.0_eslint@8.17.0
+    devDependencies:
+      eslint: 8.17.0
 
 packages:
 

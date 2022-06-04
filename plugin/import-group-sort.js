@@ -1,4 +1,5 @@
 const { builtinModules } = require("module");
+const { isCommentToken } = require("eslint-utils");
 
 const builtins = new Set(builtinModules);
 
@@ -59,38 +60,51 @@ const layers = [
 ];
 
 /**
- * 获取节点所在的所有行的范围，即将 range[1] 扩展到行尾。
+ * 尝试获取节点所在的所有行的范围，即将 node.range[1] 扩展到行尾。
+ * 如果行内还有其它无法移动的代码则原样返回 node.range。
  *
- * 该函数无法处理的一些情况：
- * 1）import 所在的行有多个语句。
- * 2）末尾有注释且未在本行内结束。
- *
- * 这些都是不规范的代码，本身就不该出现，所以 OK。
- *
- * @param text 源代码文本
+ * @param sourceCode 源码
  * @param node 节点
  * @return {[number,number]} 开始-结束二元组
  */
-function getWholeLines(text, node) {
+function getWholeLines(sourceCode, node) {
 	const [start, end] = node.range;
-	const lf = text.indexOf("\n", end) + 1;
-	return lf === 0 ? node.range : [start, lf];
+	const lf = sourceCode.getText().indexOf("\n", end);
+
+	// 本节点是最后一行，范围无需改变。
+	if (lf === -1) {
+		return node.range;
+	}
+
+	const next = sourceCode.getTokenAfter(node, { includeComments: true });
+
+	// 本行没有其它节点，直接扩展到行尾。
+	if (!next || next.range[0] > lf) {
+		return [start, lf + 1];
+	}
+
+	// 行内有其他有效语句，保守起见不扩展。
+	if (!isCommentToken(next)) {
+		return node.range;
+	}
+
+	// 注释如果在同一行内结束则视为该导入的一部分。
+	return next.range[1] > lf ? node.range : [start, lf + 1];
 }
 
 // this: SourceCode
 function* sort(node, imports, fixer) {
-	const text = this.getText();
 	const k = getWeight(node);
 	const i = imports.findIndex(i => compare(getWeight(i), k).result === 1);
 
-	const srcRange = getWholeLines(text, node);
-	const line = text.slice(...srcRange);
+	const srcRange = getWholeLines(this, node);
+	const line = this.getText().slice(...srcRange);
 
 	yield fixer.removeRange(srcRange);
 	if (i === 0) {
 		yield fixer.insertTextBefore(imports[i], line);
 	} else {
-		const r = getWholeLines(text, imports[i - 1]);
+		const r = getWholeLines(this, imports[i - 1]);
 		yield fixer.insertTextAfterRange(r, line);
 	}
 }
