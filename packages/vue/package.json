@@ -28,6 +28,6 @@
 		"eslint": "^8.20.0"
 	},
 	"dependencies": {
-		"eslint-plugin-vue": "^9.2.0"
+		"eslint-plugin-vue": "^9.3.0"
 	}
 }
