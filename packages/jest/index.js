@@ -25,5 +25,8 @@ module.exports = {
 
 		// 有些库还在用回调式的 API，强行转异步不好看。
 		"jest/no-done-callback": "off",
+
+		// Prefer sugar functions.
+		"jest/prefer-mock-promise-shorthand": "error",
 	},
 };
