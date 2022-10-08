@@ -6,5 +6,8 @@ module.exports = {
 	rules: {
 		// 没有 emits 或是 onXXX props 的话事件会绑到元素上，应当避免。
 		"vue/require-explicit-emits": ["error", { allowProps: true }],
+
+		// I use double quote in JS, so single for template.
+		"vue/html-quotes": ["error", "single", { avoidEscape: true }],
 	},
 };
