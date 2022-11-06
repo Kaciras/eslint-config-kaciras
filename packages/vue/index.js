@@ -9,5 +9,8 @@ module.exports = {
 
 		// I use double quote in JS, so single for template.
 		"vue/html-quotes": ["error", "single", { avoidEscape: true }],
+
+		// 驼峰更好，跟 JSX 一致，同时也和 Custom Element 区分开。
+		"vue/component-name-in-template-casing": ["error", "PascalCase"],
 	},
 };
