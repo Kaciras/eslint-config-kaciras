@@ -6,15 +6,18 @@ const builtins = new Set(builtinModules);
 const descriptions = {
 	ImportType: "type import",
 	Import: "value import",
-	TsImportEquals: "type alias import",
+	TsImportEquals: "type alias",
 
 	Builtin: "builtin modules",
 	Local: "local files",
 	NodeModule: "node modules",
 };
 
-const defaultOrder = [
+const DEFAULT_ORDER = [
+	// Top level, import kind.
 	"ImportType", "Import", "TsImportEquals",
+
+	// Module location of value import.
 	"Builtin", "NodeModule", "Local",
 ];
 
@@ -51,6 +54,38 @@ function getModuleLocation(node) {
 		: path.slice(0, slashIndex);
 
 	return builtins.has(root) ? "Builtin" : "NodeModule";
+}
+
+/**
+ * Get import kinds of the node.
+ *
+ * @param node espree node
+ * @return {string[] | undefined} kind array, or undefined if the node is not an import statement.
+ */
+function getImportKinds(node) {
+	const { type } = node;
+
+	if (type === "TSImportEqualsDeclaration") {
+		return ["TsImportEquals"];
+	}
+	if (type === "ImportDeclaration") {
+		// importKind is added by TypeScript parser。
+		const type = node.importKind === "type"
+			? "ImportType" : "Import";
+		return [type, getModuleLocation(node)];
+	}
+}
+
+function compare(w1, w2) {
+	for (let i = 0; i < w1.length; i++) {
+		if (w1[i] > w2[i]) {
+			return { i, result: 1 };
+		}
+		if (w1[i] < w2[i]) {
+			return { i, result: -1 };
+		}
+	}
+	return { i: NaN, result: 0 };
 }
 
 /**
@@ -103,34 +138,8 @@ function* sort(info, imports, fixer) {
 	}
 }
 
-function getImportKinds(node) {
-	const { type } = node;
-
-	if (type === "TSImportEqualsDeclaration") {
-		return ["TsImportEquals"];
-	}
-	if (type === "ImportDeclaration") {
-		// importKind 是 TypeScript parser 新加的属性。
-		const type = node.importKind === "type"
-			? "ImportType" : "Import";
-		return [type, getModuleLocation(node)];
-	}
-}
-
-function compare(w1, w2) {
-	for (let i = 0; i < w1.length; i++) {
-		if (w1[i] > w2[i]) {
-			return { i, result: 1 };
-		}
-		if (w1[i] < w2[i]) {
-			return { i, result: -1 };
-		}
-	}
-	return { i: NaN, result: 0 };
-}
-
 // this: Context
-function check(program) {
+function check(program, orders = DEFAULT_ORDER) {
 	const code = this.getSourceCode();
 	const imports = [];
 
@@ -138,8 +147,8 @@ function check(program) {
 	let prev = { node: null, kinds: [], weight: [0, 0] };
 
 	const orderMap = {};
-	for (let i = 0; i < defaultOrder.length; i++) {
-		orderMap[defaultOrder[i]] = i;
+	for (let i = 0; i < orders.length; i++) {
+		orderMap[orders[i]] = i;
 	}
 
 	for (const node of program.body) {
@@ -158,7 +167,9 @@ function check(program) {
 
 		const { i, result } = compare(weight, prev.weight);
 
-		if (result === -1) {
+		if (result !== -1) {
+			prev = info;
+		} else {
 			const lm = descriptions[kinds[i]];
 			const rm = descriptions[prev.kinds[i]];
 
@@ -167,8 +178,6 @@ function check(program) {
 				message: `${lm} should before ${rm}`,
 				fix: sort.bind(code, info, imports),
 			});
-		} else {
-			prev = info;
 		}
 	}
 }
@@ -179,8 +188,8 @@ function check(program) {
  *
  * 使用了别名的导入暂不支持自定义，一律视为三方包。
  * 默认的顺序是：
- * 1）import type -> 标准 import。
- * 2）Node 内置模块 -> 三方包 -> 本地模块。
+ * 1）import type, 标准 import, import xxx =。
+ * 2）Node 内置模块, 三方包, 本地模块。
  *
  * @type {import('eslint').Rule.RuleModule}
  */

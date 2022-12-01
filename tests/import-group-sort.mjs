@@ -156,6 +156,10 @@ testerTS.run("import-group-sort", rule, {
 			"import type { URL } from 'url';",
 			"import type S from './some-file'",
 		),
+		join(
+			"import fs from 'fs';",
+			"import Alias = Some.Type;",
+		),
 	],
 	invalid: [
 		{
@@ -179,6 +183,17 @@ testerTS.run("import-group-sort", rule, {
 				"import type S from './some-file';",
 			),
 			errors: ["builtin modules should before local files"],
+		},
+		{
+			code: join(
+				"import Alias = Some.Type;",
+				"import fs from 'fs';",
+			),
+			output: join(
+				"import fs from 'fs';",
+				"import Alias = Some.Type;",
+			),
+			errors: ["value import should before type alias"],
 		},
 	],
 });
