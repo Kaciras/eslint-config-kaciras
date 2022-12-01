@@ -3,61 +3,55 @@ const { isCommentToken } = require("eslint-utils");
 
 const builtins = new Set(builtinModules);
 
-const BUILTIN = 0;
-const DEPENDENCY = 1;
-const LOCAL = 2;
+const descriptions = {
+	ImportType: "type import",
+	Import: "value import",
+	TsImportEquals: "type alias import",
 
-const layers = [
-	{
-		names: ["type import", "value import"],
+	Builtin: "builtin modules",
+	Local: "local files",
+	NodeModule: "node modules",
+};
 
-		// importKind 是 TypeScript parser 添加的额外属性。
-		getWeight(node) {
-			return node.importKind === "type" ? 0 : 1;
-		},
-	},
-	/**
-	 * 获取导入语句的优先级（模块类型），支持完整的 URL。
-	 *
-	 * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
-	 */
-	{
-		names: [
-			"builtin modules",
-			"node modules",
-			"local files",
-		],
-		getWeight(node) {
-			let [protocol, path] = node.source.value.split(":", 2);
-			if (path === undefined) {
-				[protocol, path] = [null, protocol];
-			}
-
-			switch (protocol) {
-				case "node":
-					return BUILTIN;
-				case "file":
-				case "data":
-					return LOCAL;
-				case null:
-					break;
-				default:
-					return DEPENDENCY;
-			}
-
-			if (path.startsWith(".")) {
-				return LOCAL;
-			}
-
-			const slashIndex = path.indexOf("/");
-			const root = slashIndex === -1
-				? path
-				: path.slice(0, slashIndex);
-
-			return builtins.has(root) ? BUILTIN : DEPENDENCY;
-		},
-	},
+const defaultOrder = [
+	"ImportType", "Import", "TsImportEquals",
+	"Builtin", "NodeModule", "Local",
 ];
+
+/**
+ * 获取导入语句的优先级（模块类型），支持完整的 URL。
+ *
+ * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
+ */
+function getModuleLocation(node) {
+	let [protocol, path] = node.source.value.split(":", 2);
+	if (path === undefined) {
+		[protocol, path] = [null, protocol];
+	}
+
+	switch (protocol) {
+		case "node":
+			return "Builtin";
+		case "file":
+		case "data":
+			return "Local";
+		case null:
+			break;
+		default:
+			return "NodeModule";
+	}
+
+	if (path.startsWith(".")) {
+		return "Local";
+	}
+
+	const slashIndex = path.indexOf("/");
+	const root = slashIndex === -1
+		? path
+		: path.slice(0, slashIndex);
+
+	return builtins.has(root) ? "Builtin" : "NodeModule";
+}
 
 /**
  * 尝试获取节点所在的所有行的范围，即将 node.range[1] 扩展到行尾。
@@ -93,24 +87,34 @@ function getWholeLines(sourceCode, node) {
 }
 
 // this: SourceCode
-function* sort(node, imports, fixer) {
-	const k = getWeight(node);
-	const i = imports.findIndex(i => compare(getWeight(i), k).result === 1);
+function* sort(info, imports, fixer) {
+	const { node, weight } = info;
+	const i = imports.findIndex(i => compare(i.weight, weight).result === 1);
 
 	const srcRange = getWholeLines(this, node);
 	const line = this.getText().slice(...srcRange);
 
 	yield fixer.removeRange(srcRange);
 	if (i === 0) {
-		yield fixer.insertTextBefore(imports[i], line);
+		yield fixer.insertTextBefore(imports[i].node, line);
 	} else {
-		const r = getWholeLines(this, imports[i - 1]);
+		const r = getWholeLines(this, imports[i - 1].node);
 		yield fixer.insertTextAfterRange(r, line);
 	}
 }
 
-function getWeight(node) {
-	return layers.map(s => s.getWeight(node));
+function getImportKinds(node) {
+	const { type } = node;
+
+	if (type === "TSImportEqualsDeclaration") {
+		return ["TsImportEquals"];
+	}
+	if (type === "ImportDeclaration") {
+		// importKind 是 TypeScript parser 新加的属性。
+		const type = node.importKind === "type"
+			? "ImportType" : "Import";
+		return [type, getModuleLocation(node)];
+	}
 }
 
 function compare(w1, w2) {
@@ -129,28 +133,42 @@ function compare(w1, w2) {
 function check(program) {
 	const code = this.getSourceCode();
 	const imports = [];
-	let prev = [0, 0];
+
+	// Only the weight is used in initial properties.
+	let prev = { node: null, kinds: [], weight: [0, 0] };
+
+	const orderMap = {};
+	for (let i = 0; i < defaultOrder.length; i++) {
+		orderMap[defaultOrder[i]] = i;
+	}
 
 	for (const node of program.body) {
-		if (node.type !== "ImportDeclaration") {
+		const kinds = getImportKinds(node);
+		if (kinds === undefined) {
 			break;
 		}
-		imports.push(node);
 
-		const curr = getWeight(node);
-		const { i, result } = compare(curr, prev);
+		const weight = new Array(kinds.length);
+		for (let i = 0; i < kinds.length; i++) {
+			weight[i] = orderMap[kinds[i]];
+		}
+
+		const info = { node, kinds, weight };
+		imports.push(info);
+
+		const { i, result } = compare(weight, prev.weight);
 
 		if (result === -1) {
-			const lm = layers[i].names[curr[i]];
-			const rm = layers[i].names[prev[i]];
+			const lm = descriptions[kinds[i]];
+			const rm = descriptions[prev.kinds[i]];
 
 			this.report({
 				node,
 				message: `${lm} should before ${rm}`,
-				fix: sort.bind(code, node, imports),
+				fix: sort.bind(code, info, imports),
 			});
 		} else {
-			prev = curr;
+			prev = info;
 		}
 	}
 }
