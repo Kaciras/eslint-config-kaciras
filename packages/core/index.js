@@ -4,8 +4,8 @@ module.exports = {
 	],
 	plugins: ["@kaciras"],
 	env: {
-		// 这个包含了 parserOptions.ecmaVersion: 12
-		es2021: true,
+		// 包含了 parserOptions.ecmaVersion: 13
+		es2022: true,
 	},
 	parserOptions: {
 		ecmaVersion: "latest",
