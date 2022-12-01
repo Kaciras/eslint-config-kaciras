@@ -26,8 +26,8 @@ const DEFAULT_ORDER = [
  *
  * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
  */
-function getModuleLocation(node) {
-	let [protocol, path] = node.source.value.split(":", 2);
+function getModuleLocation(source) {
+	let [protocol, path] = source.value.split(":", 2);
 	if (path === undefined) {
 		[protocol, path] = [null, protocol];
 	}
@@ -63,16 +63,19 @@ function getModuleLocation(node) {
  * @return {string[] | undefined} kind array, or undefined if the node is not an import statement.
  */
 function getImportKinds(node) {
-	const { type } = node;
-
-	if (type === "TSImportEqualsDeclaration") {
-		return ["TsImportEquals"];
+	if (node.type === "TSImportEqualsDeclaration") {
+		const { type, expression } = node.moduleReference;
+		if (type !== "TSExternalModuleReference") {
+			return ["TsImportEquals"];						// import x = Foo.Bar;
+		}
+		return ["Import", getModuleLocation(expression)];	// import x = require("expression");
 	}
-	if (type === "ImportDeclaration") {
+	if (node.type === "ImportDeclaration") {
 		// importKind is added by TypeScript parser。
 		const type = node.importKind === "type"
-			? "ImportType" : "Import";
-		return [type, getModuleLocation(node)];
+			? "ImportType" 									// import type x from "source"
+			: "Import";										// import x from "source"
+		return [type, getModuleLocation(node.source)];
 	}
 }
 

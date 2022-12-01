@@ -160,6 +160,10 @@ testerTS.run("import-group-sort", rule, {
 			"import fs from 'fs';",
 			"import Alias = Some.Type;",
 		),
+		join(
+			"import fs from 'fs';",
+			"import Alias = require('../local');",
+		),
 	],
 	invalid: [
 		{
@@ -194,6 +198,17 @@ testerTS.run("import-group-sort", rule, {
 				"import Alias = Some.Type;",
 			),
 			errors: ["value import should before type alias"],
+		},
+		{
+			code: join(
+				"import Alias = require('../local');",
+				"import fs from 'fs';",
+			),
+			output: join(
+				"import fs from 'fs';",
+				"import Alias = require('../local');",
+			),
+			errors: ["builtin modules should before local files"],
 		},
 	],
 });
