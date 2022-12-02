@@ -22,7 +22,7 @@ const DEFAULT_ORDER = [
 ];
 
 /**
- * 获取导入语句的优先级（模块类型），支持完整的 URL。
+ * Get module type by URL schema or file location.
  *
  * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
  */
@@ -142,7 +142,7 @@ function* sort(info, imports, fixer) {
 }
 
 // this: Context
-function check(program, orders = DEFAULT_ORDER) {
+function check(orders, program) {
 	const code = this.getSourceCode();
 	const imports = [];
 
@@ -204,8 +204,27 @@ module.exports = {
 			description: "sort imports",
 			recommended: false,
 		},
+		schema: {
+			type: "array",
+			items: {
+				enum: DEFAULT_ORDER,
+			},
+			minItems: 0,
+			uniqueItems: true,
+		},
 	},
 	create(context) {
-		return { Program: check.bind(context) };
+		const { options } = context;
+		let orders;
+
+		if (options.length === DEFAULT_ORDER.length) {
+			orders = options;
+		} else if (options.length === 0) {
+			orders = DEFAULT_ORDER;
+		} else {
+			throw new Error("Custom order must includes all types of imports");
+		}
+
+		return { Program: check.bind(context, orders) };
 	},
 };
