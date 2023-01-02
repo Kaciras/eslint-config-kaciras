@@ -7,8 +7,8 @@
 	},
 	"devDependencies": {
 		"@kaciras/eslint-plugin": "workspace:^",
-		"eslint": "^8.30.0",
-		"eslint-plugin-eslint-plugin": "^5.0.6",
+		"eslint": "^8.31.0",
+		"eslint-plugin-eslint-plugin": "^5.0.7",
 		"mocha": "^10.2.0"
 	}
 }
