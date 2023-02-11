@@ -21,7 +21,7 @@
 		"eslint": ">=8"
 	},
 	"devDependencies": {
-		"eslint": "^8.33.0"
+		"eslint": "^8.34.0"
 	},
 	"dependencies": {
 		"eslint-plugin-jest": "^27.2.1"
