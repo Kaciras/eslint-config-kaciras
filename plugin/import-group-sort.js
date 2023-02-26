@@ -157,9 +157,8 @@ function check(orders, program) {
 	for (const node of program.body) {
 		const kinds = getImportKinds(node);
 		if (kinds === undefined) {
-			break;
+			continue;
 		}
-
 		const weight = new Array(kinds.length);
 		for (let i = 0; i < kinds.length; i++) {
 			weight[i] = orderMap[kinds[i]];

@@ -145,6 +145,19 @@ testerJS.run("import-group-sort", rule, {
 			),
 			errors: ["builtin modules should before node modules"],
 		},
+		{
+			code: join(
+				"import eslint from 'eslint';",
+				"eslint.run();",
+				"import 'node:path';",
+			),
+			output: join(
+				"import 'node:path';",
+				"import eslint from 'eslint';",
+				"eslint.run();",
+			),
+			errors: ["builtin modules should before node modules"],
+		},
 	],
 });
 
