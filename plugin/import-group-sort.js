@@ -10,7 +10,7 @@ const descriptions = {
 
 	Builtin: "builtin modules",
 	Local: "local files",
-	NodeModule: "node modules",
+	NodeModule: "3rd party modules",
 };
 
 const DEFAULT_ORDER = [
@@ -24,7 +24,7 @@ const DEFAULT_ORDER = [
 /**
  * Get module type by URL schema or file location.
  *
- * @see https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#urls
+ * @see https://nodejs.org/dist/latest-v19.x/docs/api/esm.html#urls
  */
 function getModuleLocation(source) {
 	let [protocol, path] = source.value.split(":", 2);
@@ -91,36 +91,27 @@ function compare(w1, w2) {
 	return { i: NaN, result: 0 };
 }
 
-/**
- * 尝试获取节点所在的所有行的范围，即将 node.range[1] 扩展到行尾。
- * 如果行内还有其它无法移动的代码则原样返回 node.range。
- *
- * @param sourceCode 源码
- * @param node 节点
- * @return {[number,number]} 开始-结束二元组
- */
-function getWholeLines(sourceCode, node) {
+function tryGetWholeLines(sourceCode, node) {
 	const [start, end] = node.range;
 	const lf = sourceCode.getText().indexOf("\n", end);
 
-	// 本节点是最后一行，范围无需改变。
+	// Last line，no change needed.
 	if (lf === -1) {
 		return node.range;
 	}
 
 	const next = sourceCode.getTokenAfter(node, { includeComments: true });
 
-	// 本行没有其它节点，直接扩展到行尾。
+	// No more nodes in the line，expand range to line end.
 	if (!next || next.range[0] > lf) {
 		return [start, lf + 1];
 	}
 
-	// 行内有其他有效语句，保守起见不扩展。
 	if (!isCommentToken(next)) {
 		return node.range;
 	}
 
-	// 注释如果在同一行内结束则视为该导入的一部分。
+	// Comments end on the same line are considered part of the statement.
 	return next.range[1] > lf ? node.range : [start, lf + 1];
 }
 
@@ -129,14 +120,14 @@ function* sort(info, imports, fixer) {
 	const { node, weight } = info;
 	const i = imports.findIndex(i => compare(i.weight, weight).result === 1);
 
-	const srcRange = getWholeLines(this, node);
+	const srcRange = tryGetWholeLines(this, node);
 	const line = this.getText().slice(...srcRange);
 
 	yield fixer.removeRange(srcRange);
 	if (i === 0) {
 		yield fixer.insertTextBefore(imports[i].node, line);
 	} else {
-		const r = getWholeLines(this, imports[i - 1].node);
+		const r = tryGetWholeLines(this, imports[i - 1].node);
 		yield fixer.insertTextAfterRange(r, line);
 	}
 }
@@ -185,13 +176,15 @@ function check(orders, program) {
 }
 
 /**
- * 将顶层的导入语句按照模块的位置排序，注意该规则不符合 ESLint 的规范，
- * 因为导入可能有副作用，比如 CSS 文件的导入顺序关系到优先级，请慎用。
+ * Sort static imports by type and module location.
  *
- * 使用了别名的导入暂不支持自定义，一律视为三方包。
- * 默认的顺序是：
- * 1）import type, 标准 import, import xxx =。
- * 2）Node 内置模块, 三方包, 本地模块。
+ * Note that this rule does not conform to the ESLint specification,
+ * as the import may have side effects, such as the import order
+ * of CSS files being related to priority, so use it with caution.
+ *
+ * Default order:
+ * 1）import type  >    import    > import equals。
+ * 2）Node builtin > node_modules > local files。
  *
  * @type {import('eslint').Rule.RuleModule}
  */

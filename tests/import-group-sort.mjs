@@ -46,7 +46,7 @@ testerJS.run("import-group-sort", rule, {
 				"import 'eslint';",
 				"import './test';",
 			),
-			errors: ["node modules should before local files"],
+			errors: ["3rd party modules should before local files"],
 		},
 		{
 			code: join(
@@ -57,7 +57,7 @@ testerJS.run("import-group-sort", rule, {
 				"import '@/alias';",
 				"import './test';",
 			),
-			errors: ["node modules should before local files"],
+			errors: ["3rd party modules should before local files"],
 		},
 		{
 			code: join(
@@ -101,7 +101,7 @@ testerJS.run("import-group-sort", rule, {
 				"import 'path';",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before node modules"],
+			errors: ["builtin modules should before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -112,12 +112,12 @@ testerJS.run("import-group-sort", rule, {
 				"import 'node:path';",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before node modules"],
+			errors: ["builtin modules should before 3rd party modules"],
 		},
 		{
 			code: "import 'eslint';import 'path';",
 			output: "import 'path';import 'eslint';",
-			errors: ["builtin modules should before node modules"],
+			errors: ["builtin modules should before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -128,7 +128,7 @@ testerJS.run("import-group-sort", rule, {
 				"import 'path'; // comment",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before node modules"],
+			errors: ["builtin modules should before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -143,7 +143,7 @@ testerJS.run("import-group-sort", rule, {
 				"",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before node modules"],
+			errors: ["builtin modules should before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -156,7 +156,7 @@ testerJS.run("import-group-sort", rule, {
 				"import eslint from 'eslint';",
 				"eslint.run();",
 			),
-			errors: ["builtin modules should before node modules"],
+			errors: ["builtin modules should before 3rd party modules"],
 		},
 	],
 });
