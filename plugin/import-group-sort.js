@@ -91,28 +91,34 @@ function compare(w1, w2) {
 	return { i: NaN, result: 0 };
 }
 
+function tryExpandEnd(sourceCode, node) {
+	const [, end] = node.range;
+
+	let nl = sourceCode.getText().indexOf("\n", end) + 1;
+	if (nl === 0) {
+		nl = sourceCode.getText().length;
+	}
+
+	const comment = sourceCode.getCommentsAfter(node).at(-1);
+	if (comment) {
+		if (comment.range[0] >= nl) {
+			return nl;
+		}
+		if (comment.range[1] >= nl) {
+			return comment.range[0];
+		}
+		node = comment;
+	}
+
+	const next = sourceCode.getTokenAfter(node);
+	if (!next) {
+		return nl;
+	}
+	return next.range[0] >= nl ? nl : next.range[0];
+}
+
 function tryGetWholeLines(sourceCode, node) {
-	const [start, end] = node.range;
-	const lf = sourceCode.getText().indexOf("\n", end);
-
-	// Last line，no change needed.
-	if (lf === -1) {
-		return node.range;
-	}
-
-	const next = sourceCode.getTokenAfter(node, { includeComments: true });
-
-	// No more nodes in the line，expand range to line end.
-	if (!next || next.range[0] > lf) {
-		return [start, lf + 1];
-	}
-
-	if (!isCommentToken(next)) {
-		return node.range;
-	}
-
-	// Comments end on the same line are considered part of the statement.
-	return next.range[1] > lf ? node.range : [start, lf + 1];
+	return [node.range[0], tryExpandEnd(sourceCode, node)];
 }
 
 // this: SourceCode
@@ -121,13 +127,20 @@ function* sort(info, imports, fixer) {
 	const i = imports.findIndex(i => compare(i.weight, weight).result === 1);
 
 	const srcRange = tryGetWholeLines(this, node);
-	const line = this.getText().slice(...srcRange);
+	let line = this.getText().slice(...srcRange);
+
+	if (!line.endsWith("\n")) {
+		line += "\n";
+	}
 
 	yield fixer.removeRange(srcRange);
 	if (i === 0) {
-		yield fixer.insertTextBefore(imports[i].node, line);
+		yield fixer.insertTextBefore(imports[0].node, line);
 	} else {
 		const r = tryGetWholeLines(this, imports[i - 1].node);
+		if (this.getText()[r[1] - 1] !== "\n") {
+			line = "\n" + line;
+		}
 		yield fixer.insertTextAfterRange(r, line);
 	}
 }

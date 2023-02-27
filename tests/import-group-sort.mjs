@@ -114,19 +114,42 @@ testerJS.run("import-group-sort", rule, {
 			),
 			errors: ["builtin modules should before 3rd party modules"],
 		},
+
+		// Fix with multiple tokens in the line.
 		{
-			code: "import 'eslint';import 'path';",
-			output: "import 'path';import 'eslint';",
+			code: join(
+				"import 'eslint';",
+				"import 'path'; /*foo*/ //bar",
+			),
+			output: join(
+				"import 'path'; /*foo*/ //bar",
+				"import 'eslint';",
+			),
 			errors: ["builtin modules should before 3rd party modules"],
 		},
 		{
 			code: join(
 				"import 'eslint';",
-				"import 'path'; // comment",
+				"import 'path'; /*foo*/ /*bar\n*/",
 			),
 			output: join(
-				"import 'path'; // comment",
+				"import 'path'; /*foo*/ ",
 				"import 'eslint';",
+				"/*bar\n*/",
+			),
+			errors: ["builtin modules should before 3rd party modules"],
+		},
+		{
+			code: join(
+				"import 'eslint';",
+				"import 'path'; /*foo*/ const x={",
+				"key:123};",
+			),
+			output: join(
+				"import 'path'; /*foo*/ ",
+				"import 'eslint';",
+				"const x={",
+				"key:123};",
 			),
 			errors: ["builtin modules should before 3rd party modules"],
 		},
