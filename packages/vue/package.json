@@ -1,6 +1,6 @@
 {
 	"name": "@kaciras/eslint-config-vue",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
 	"author": "Kaciras <Kaciras@pm.me>",
