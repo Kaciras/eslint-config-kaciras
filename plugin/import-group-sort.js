@@ -1,5 +1,4 @@
 const { builtinModules } = require("module");
-const { isCommentToken } = require("eslint-utils");
 
 const builtins = new Set(builtinModules);
 
@@ -92,29 +91,33 @@ function compare(w1, w2) {
 }
 
 function tryExpandEnd(sourceCode, node) {
-	const [, end] = node.range;
+	const text = sourceCode.getText();
 
-	let nl = sourceCode.getText().indexOf("\n", end) + 1;
+	// nl is start index of the next line.
+	let nl = text.indexOf("\n", node.range[1]) + 1;
 	if (nl === 0) {
-		nl = sourceCode.getText().length;
+		nl = text.length;
 	}
 
 	const comment = sourceCode.getCommentsAfter(node).at(-1);
 	if (comment) {
+		// no more token in the line.
 		if (comment.range[0] >= nl) {
 			return nl;
 		}
+		// comment block across the line.
 		if (comment.range[1] >= nl) {
 			return comment.range[0];
 		}
-		node = comment;
 	}
 
 	const next = sourceCode.getTokenAfter(node);
 	if (!next) {
-		return nl;
+		return nl; // node is the last non-comment token.
 	}
-	return next.range[0] >= nl ? nl : next.range[0];
+
+	// non-comment token in the line, stop expanding.
+	return next.range[0] < nl ? next.range[0] : nl;
 }
 
 function tryGetWholeLines(sourceCode, node) {
