@@ -25,9 +25,9 @@
 		"@kaciras/eslint-config-typescript": "^2.3.0"
 	},
 	"devDependencies": {
-		"eslint": "^8.38.0"
+		"eslint": "^8.39.0"
 	},
 	"dependencies": {
-		"eslint-plugin-vue": "^9.10.0"
+		"eslint-plugin-vue": "^9.11.0"
 	}
 }
