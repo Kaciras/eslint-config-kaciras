@@ -17,8 +17,6 @@ jobs:
 
       - run: npm i -g pnpm
 
-      # 没有用 name 所以写完整的 install 更清晰些
       - run: pnpm install
 
-      # 环境变量 CI 默认为 true
       - run: pnpm run test
