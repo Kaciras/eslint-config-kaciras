@@ -4,6 +4,6 @@
 module.exports = {
 	overrides: [{
 		files: ["*.ts?(x)"],
-		extends: [require.resolve("./base")],
+		extends: [require.resolve("./base.js")],
 	}],
 };

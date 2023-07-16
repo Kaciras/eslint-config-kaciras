@@ -1,5 +1,5 @@
 const tsPreset = require.resolve("@kaciras/eslint-config-typescript/base");
-const vuePreset = require.resolve("./index");
+const vuePreset = require.resolve("./index.js");
 
 /*
  * 对 Vue SFC 文件使用 TypeScript 规则，并强制其使用 <script lang="ts">。

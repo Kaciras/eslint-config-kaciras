@@ -10,12 +10,18 @@ module.exports = {
 	extends: [
 		"plugin:@typescript-eslint/recommended",
 	],
+	parserOptions: {
+		// https://typescript-eslint.io/linting/typed-linting
+		project: true,
+	},
 	rules: {
+		// I occasionally misread the type of the return value.
+		"@typescript-eslint/no-misused-promises": ["error", {
+			checksVoidReturn: false,
+		}],
+
 		// 不让用感叹号和 any 是不对的，总有些情况必须这样做。
 		"@typescript-eslint/no-explicit-any": "off",
-
-		// 该怎么导入我是很清楚的，而且 CJS 模块只能用 require。
-		"@typescript-eslint/no-var-requires": "off",
 
 		// TS 并非完美无缺，总有用到 @ts-ignore 的时候。
 		"@typescript-eslint/ban-ts-comment": "off",
