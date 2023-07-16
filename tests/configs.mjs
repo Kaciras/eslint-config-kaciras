@@ -41,24 +41,24 @@ function normalize(rule) {
 
 const packages = [
 	{
-		name: "core",
+		name: "core/index.js",
 		plugins: ["@kaciras"],
 	},
 	{
-		name: "react",
+		name: "react/index.js",
 		plugins: ["react", "react-hooks"],
 	},
 	{
-		name: "jest",
+		name: "jest/index.js",
 		plugins: ["jest"],
 	},
 	{
-		name: "typescript",
-		plugins: ["@typescript-eslint"],
+		name: "vue/index.js",
+		plugins: ["vue"],
 	},
 	{
-		name: "vue",
-		plugins: ["vue"],
+		name: "typescript/base.js",
+		plugins: ["@typescript-eslint"],
 	},
 ];
 
@@ -78,10 +78,10 @@ packages.forEach(({ name, plugins }) => {
 	});
 
 	/**
-	 * 检测是否存在跟 extends 里重复的规则。
+	 * Check all rules in the config must change the rules of the base config.
 	 */
-	it("should deduplicate with extends - " + name, async () => {
-		const module = await import(`../packages/${name}/index.js`);
+	it("should not have redundant rules - " + name, async () => {
+		const { default: module } = await import(`../packages/${name}`);
 
 		const { rules } = await getConfig("foobar.tsx", {
 			extends: module.extends,
@@ -89,16 +89,17 @@ packages.forEach(({ name, plugins }) => {
 
 		for (const [k, v] of Object.entries(module.rules ?? {})) {
 			const fromExt = rules[k];
-			if (!fromExt) {
-				continue;
-			}
 			const [level, ...options] = normalize(v);
-			const [baseLevel, ...baseOptions] = normalize(fromExt);
 
+			if (level === "off" && !fromExt) {
+				assert.fail(`${k} = off is redundant`);
+			}
+
+			const [baseLevel, ...baseOptions] = normalize(fromExt);
 			if (level !== baseLevel) {
 				continue;
 			}
-			assert.notDeepStrictEqual(baseOptions, options, k);
+			assert.notDeepStrictEqual(baseOptions, options, `${k} is redundant`);
 		}
 	});
 });
