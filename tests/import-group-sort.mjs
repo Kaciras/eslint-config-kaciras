@@ -25,15 +25,32 @@ testerJS.run("import-group-sort", rule, {
 			"import 'node:path';",
 			"import 'eslint';",
 		),
+		join(
+			"import './test.css';",
+			"import 'eslint';",
+		),
 		{
 			code: join(
-				"import './test.js';",
+				"import './test';",
 				"import 'eslint';",
 			),
-			options: [
-				"ImportType", "Import", "TsImportEquals",
-				"Local", "Builtin", "NodeModule",
-			],
+			options: [{
+				order: [
+					"ImportType",
+					"Import",
+					"TsImportEquals",
+					"Local",
+					"Builtin",
+					"NodeModule",
+				],
+			}],
+		},
+		{
+			code: join(
+				"import './test';",
+				"import 'eslint';",
+			),
+			options: [{ exclude: /test/ }],
 		},
 	],
 	invalid: [

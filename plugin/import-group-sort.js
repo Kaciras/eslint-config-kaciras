@@ -20,13 +20,15 @@ const DEFAULT_ORDER = [
 	"Builtin", "NodeModule", "Local",
 ];
 
+const cssRE = /\.(?:css|less|sass|scss|styl|pcss)(?:\?|$)/;
+
 /**
  * Get module type by URL schema or file location.
  *
- * @see https://nodejs.org/dist/latest-v19.x/docs/api/esm.html#urls
+ * @see https://nodejs.org/dist/latest-v20.x/docs/api/esm.html#urls
  */
-function getModuleLocation(source) {
-	let [protocol, path] = source.value.split(":", 2);
+function getModuleLocation(value) {
+	let [protocol, path] = value.split(":", 2);
 	if (path === undefined) {
 		[protocol, path] = [null, protocol];
 	}
@@ -61,20 +63,20 @@ function getModuleLocation(source) {
  * @param node espree node
  * @return {string[] | undefined} kind array, or undefined if the node is not an import statement.
  */
-function getImportKinds(node) {
-	if (node.type === "TSImportEqualsDeclaration") {
-		const { type, expression } = node.moduleReference;
-		if (type !== "TSExternalModuleReference") {
-			return ["TsImportEquals"];						// import x = Foo.Bar;
-		}
-		return ["Import", getModuleLocation(expression)];	// import x = require("expression");
-	}
+function parseImport(node) {
 	if (node.type === "ImportDeclaration") {
 		// importKind is added by TypeScript parser。
 		const type = node.importKind === "type"
-			? "ImportType" 									// import type x from "source"
-			: "Import";										// import x from "source"
-		return [type, getModuleLocation(node.source)];
+			? "ImportType" 						// import type x from "source"
+			: "Import";							// import x from "source"
+		return [type, node.source.value];
+	}
+	if (node.type === "TSImportEqualsDeclaration") {
+		const { type, expression } = node.moduleReference;
+		if (type !== "TSExternalModuleReference") {
+			return ["TsImportEquals"];			// import x = Foo.Bar;
+		}
+		return ["Import", expression.value];	// import x = require("expression");
 	}
 }
 
@@ -149,33 +151,31 @@ function* sort(info, imports, fixer) {
 }
 
 // this: Context
-function check(orders, program) {
+function check(orderMap, exclude, program) {
 	const code = this.getSourceCode();
 	const imports = [];
 
 	// Only the weight is used in initial properties.
 	let prev = { node: null, kinds: [], weight: [0, 0] };
 
-	const orderMap = {};
-	for (let i = 0; i < orders.length; i++) {
-		orderMap[orders[i]] = i;
-	}
-
 	for (const node of program.body) {
-		const kinds = getImportKinds(node);
-		if (kinds === undefined) {
+		const [type, source] = parseImport(node) ?? [];
+
+		if (!type || exclude.test(source)) {
 			continue;
 		}
-		const weight = new Array(kinds.length);
-		for (let i = 0; i < kinds.length; i++) {
-			weight[i] = orderMap[kinds[i]];
+
+		const kinds = [type];
+		if (source) {
+			kinds.push(getModuleLocation(source));
 		}
+
+		const weight = kinds.map(k => orderMap[k]);
 
 		const info = { node, kinds, weight };
 		imports.push(info);
 
 		const { i, result } = compare(weight, prev.weight);
-
 		if (result !== -1) {
 			prev = info;
 		} else {
@@ -212,27 +212,39 @@ module.exports = {
 			description: "sort imports",
 			recommended: false,
 		},
-		schema: {
-			type: "array",
-			items: {
-				enum: DEFAULT_ORDER,
+		schema: [{
+			type: "object",
+			properties: {
+				order: {
+					type: "array",
+					items: {
+						enum: DEFAULT_ORDER,
+					},
+					minItems: 0,
+					uniqueItems: true,
+				},
+				exclude: {
+					type: "object",
+				},
 			},
-			minItems: 0,
-			uniqueItems: true,
-		},
+			additionalProperties: false,
+		}],
 	},
 	create(context) {
-		const { options } = context;
-		let orders;
+		const { order = DEFAULT_ORDER, exclude = cssRE } = context.options[0] ?? {};
 
-		if (options.length === DEFAULT_ORDER.length) {
-			orders = options;
-		} else if (options.length === 0) {
-			orders = DEFAULT_ORDER;
-		} else {
+		if (!(exclude instanceof RegExp)) {
+			throw new Error("exclude option must be a RegExp");
+		}
+		if (order.length !== DEFAULT_ORDER.length) {
 			throw new Error("Custom order must includes all types of imports");
 		}
 
-		return { Program: check.bind(context, orders) };
+		const orderMap = {};
+		for (let i = 0; i < order.length; i++) {
+			orderMap[order[i]] = i;
+		}
+
+		return { Program: check.bind(context, orderMap, exclude) };
 	},
 };
