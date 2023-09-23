@@ -25,6 +25,7 @@ const cssRE = /\.(?:css|less|sass|scss|styl|pcss)(?:\?|$)/;
 /**
  * Get module type by URL schema or file location.
  *
+ * @param value {string} module specifier
  * @see https://nodejs.org/dist/latest-v20.x/docs/api/esm.html#urls
  */
 function getModuleLocation(value) {
@@ -58,10 +59,11 @@ function getModuleLocation(value) {
 }
 
 /**
- * Get import kinds of the node.
+ * Get import kind (type of regular) and module specifier of the node.
  *
- * @param node espree node
- * @return {string[] | undefined} kind array, or undefined if the node is not an import statement.
+ * @param node estree node
+ * @return {[string, string] | undefined} kind and module specifier tuple,
+ *         or undefined if the node is not an import statement.
  */
 function parseImport(node) {
 	if (node.type === "ImportDeclaration") {
@@ -122,23 +124,41 @@ function tryExpandEnd(sourceCode, node) {
 	return next.range[0] < nl ? next.range[0] : nl;
 }
 
+/**
+ * @param sourceCode {import("eslint").SourceCode}
+ * @param node
+ * @return {[number, number]}
+ */
 function tryGetWholeLines(sourceCode, node) {
 	return [node.range[0], tryExpandEnd(sourceCode, node)];
 }
 
-// this: SourceCode
+/**
+ * @typedef {object} WeightInfo
+ * @property {any} node
+ * @property {string[]} kinds
+ * @property {number[]} weight
+ */
+
+/**
+ * @this {import("eslint").SourceCode}
+ * @param info {WeightInfo}
+ * @param imports
+ * @param fixer {import("eslint").Rule.RuleFixer}
+ * @return {Generator<import("eslint").Rule.Fix>}
+ */
 function* sort(info, imports, fixer) {
 	const { node, weight } = info;
 	const i = imports.findIndex(i => compare(i.weight, weight).result === 1);
 
-	const srcRange = tryGetWholeLines(this, node);
-	let line = this.getText().slice(...srcRange);
+	const range = tryGetWholeLines(this, node);
+	let line = this.getText().slice(range[0], range[1]);
 
 	if (!line.endsWith("\n")) {
 		line += "\n";
 	}
 
-	yield fixer.removeRange(srcRange);
+	yield fixer.removeRange(range);
 	if (i === 0) {
 		yield fixer.insertTextBefore(imports[0].node, line);
 	} else {
@@ -150,12 +170,16 @@ function* sort(info, imports, fixer) {
 	}
 }
 
-// this: Context
+/**
+ * @this {import('eslint').Rule.RuleContext}
+ * @param orderMap {Record<string, number>}
+ * @param exclude {RegExp}
+ * @param program {import("estree").Program}
+ */
 function check(orderMap, exclude, program) {
-	const code = this.getSourceCode();
+	const code = this.sourceCode;
 	const imports = [];
 
-	// Only the weight is used in initial properties.
 	let prev = { node: null, kinds: [], weight: [0, 0] };
 
 	for (const node of program.body) {
