@@ -1,6 +1,6 @@
 {
 	"name": "@kaciras/eslint-plugin",
-	"version": "2.6.0",
+	"version": "2.6.1",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
 	"author": "Kaciras <Kaciras@pm.me>",

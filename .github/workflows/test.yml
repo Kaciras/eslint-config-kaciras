@@ -13,8 +13,9 @@ jobs:
         with:
           node-version: latest
 
-      - run: npm i -g pnpm
-
-      - run: pnpm install
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
 
       - run: pnpm run test
