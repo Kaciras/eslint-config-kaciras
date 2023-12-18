@@ -18,15 +18,15 @@ module.exports = {
 	],
 	rules: {
 		// 生命周期钩子当然要写在最前面啊。
-		"jest/prefer-hooks-on-top": "error",
+		"jest/prefer-hooks-on-top": 2,
 
 		// 无法识别第三方库的断言，添加 assertFunctionNames 也很麻烦。
-		"jest/expect-expect": "off",
+		"jest/expect-expect": 0,
 
 		// 有些库还在用回调式的 API，强行转异步不好看。
-		"jest/no-done-callback": "off",
+		"jest/no-done-callback": 0,
 
 		// Prefer sugar functions.
-		"jest/prefer-mock-promise-shorthand": "error",
+		"jest/prefer-mock-promise-shorthand": 2,
 	},
 };

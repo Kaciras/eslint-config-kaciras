@@ -19,6 +19,6 @@ module.exports = {
 		parser: "vue-eslint-parser",
 	}],
 	rules: {
-		"vue/block-lang": ["error", { script: { lang: "ts" } }],
+		"vue/block-lang": [2, { script: { lang: "ts" } }],
 	},
 };
