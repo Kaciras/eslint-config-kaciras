@@ -57,6 +57,10 @@ module.exports = {
 		"no-throw-literal": "error",
 		"no-label-var": "error",
 
+		"no-unused-vars": ["error", {
+			varsIgnorePattern: "^_+$",
+		}],
+
 		// 不加分号是有坑的，不知道为什么默认不启用这规则。
 		"semi": ["error", "always"],
 

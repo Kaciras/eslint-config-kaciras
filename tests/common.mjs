@@ -7,7 +7,7 @@ import { ESLint, Linter } from "eslint";
  * @param filename 文件名
  * @param config 规则
  */
-function getConfig(filename, config) {
+export function getConfig(filename, config) {
 	const eslint = new ESLint({
 		useEslintrc: false,
 		overrideConfig: config,
