@@ -12,6 +12,9 @@ module.exports = {
 		sourceType: "module",
 	},
 	rules: {
+		// I don't think reassign the exception parameter is dangerous.
+		"no-ex-assign": 0,
+
 		// 很多语言单括号用于 char 类型，这里保持一致使用双括号。
 		"quotes": [2, "double", {
 			avoidEscape: true,
