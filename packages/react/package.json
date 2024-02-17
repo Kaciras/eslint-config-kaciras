@@ -1,6 +1,6 @@
 {
 	"name": "@kaciras/eslint-config-react",
-	"version": "2.6.3",
+	"version": "2.6.4",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
 	"author": "Kaciras <Kaciras@pm.me>",
