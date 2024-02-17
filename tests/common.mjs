@@ -70,7 +70,7 @@ packages.forEach(({ name, plugins }) => {
 	 */
 	it("should add plugins from " + name, async () => {
 		const config = await getConfig("foobar.tsx", {
-			extends: "./packages/" + name,
+			extends: "./configs/" + name,
 		});
 
 		assert.strictEqual(config.plugins.length, plugins.length);
@@ -81,7 +81,7 @@ packages.forEach(({ name, plugins }) => {
 	 * Check all rules in the config must change the rules of the base config.
 	 */
 	it("should not have redundant rules - " + name, async () => {
-		const { default: module } = await import(`../packages/${name}`);
+		const { default: module } = await import(`../configs/${name}`);
 
 		const { rules } = await getConfig("foobar.tsx", {
 			extends: module.extends,
@@ -113,7 +113,7 @@ it("should avoid conflict with typescript", async () => {
 		env: {
 			es2021: true,
 		},
-		extends: ["./packages/typescript"],
+		extends: ["./configs/typescript"],
 	});
 
 	const linter = new Linter();
@@ -124,9 +124,9 @@ it("should avoid conflict with typescript", async () => {
 describe("vue + typescript", () => {
 	const config = {
 		extends: [
-			"./packages/core",
-			"./packages/typescript",
-			"./packages/vue/typescript",
+			"./configs/core",
+			"./configs/typescript",
+			"./configs/vue/typescript",
 		],
 		env: { es2021: true },
 	};

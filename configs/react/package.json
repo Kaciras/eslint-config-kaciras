@@ -1,5 +1,5 @@
 {
-	"name": "@kaciras/eslint-config-typescript",
+	"name": "@kaciras/eslint-config-react",
 	"version": "2.6.4",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
@@ -7,11 +7,11 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
-		"directory": "packages/typescript"
+		"directory": "configs/react"
 	},
 	"keywords": [
 		"eslint",
-		"typescript"
+		"react"
 	],
 	"engines": {
 		"node": ">=14"
@@ -21,11 +21,10 @@
 		"eslint": ">=8"
 	},
 	"devDependencies": {
-		"eslint": "^8.56.0",
-		"typescript": "^5.3.3"
+		"eslint": "^8.56.0"
 	},
 	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "^7.0.1",
-		"@typescript-eslint/parser": "^7.0.1"
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react-hooks": "^4.6.0"
 	}
 }

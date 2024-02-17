@@ -2,8 +2,8 @@
 module.exports = {
 	root: true,
 	extends: [
-		"./packages/core",
-		"./packages/typescript",
+		"./configs/core",
+		"./configs/typescript",
 	],
 	env: {
 		node: true,

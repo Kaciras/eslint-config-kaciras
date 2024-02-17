@@ -3,7 +3,7 @@ import { Linter } from "eslint";
 import { getConfig } from "./common.mjs";
 
 const config = await getConfig("dummy.js",{
-	extends: ["./packages/core/index.js"],
+	extends: ["./configs/core/index.js"],
 });
 
 const linter = new Linter();

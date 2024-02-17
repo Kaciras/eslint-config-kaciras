@@ -1,5 +1,5 @@
 {
-	"name": "@kaciras/eslint-config-react",
+	"name": "@kaciras/eslint-config-jest",
 	"version": "2.6.4",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
@@ -7,11 +7,11 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
-		"directory": "packages/react"
+		"directory": "configs/jest"
 	},
 	"keywords": [
 		"eslint",
-		"react"
+		"jest"
 	],
 	"engines": {
 		"node": ">=14"
@@ -24,7 +24,6 @@
 		"eslint": "^8.56.0"
 	},
 	"dependencies": {
-		"eslint-plugin-react": "^7.33.2",
-		"eslint-plugin-react-hooks": "^4.6.0"
+		"eslint-plugin-jest": "^27.9.0"
 	}
 }

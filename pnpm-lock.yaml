@@ -24,7 +24,7 @@ importers:
         specifier: ^10.3.0
         version: 10.3.0
 
-  packages/core:
+  configs/core:
     dependencies:
       '@kaciras/eslint-plugin':
         specifier: workspace:^
@@ -34,7 +34,7 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
 
-  packages/jest:
+  configs/jest:
     dependencies:
       eslint-plugin-jest:
         specifier: ^27.9.0
@@ -44,7 +44,7 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
 
-  packages/react:
+  configs/react:
     dependencies:
       eslint-plugin-react:
         specifier: ^7.33.2
@@ -57,7 +57,7 @@ importers:
         specifier: ^8.56.0
         version: 8.56.0
 
-  packages/typescript:
+  configs/typescript:
     dependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.1
@@ -73,7 +73,7 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  packages/vue:
+  configs/vue:
     dependencies:
       eslint-plugin-vue:
         specifier: ^9.21.1
@@ -886,7 +886,7 @@ packages:
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 6.0.15
-      semver: 7.5.4
+      semver: 7.6.0
       vue-eslint-parser: 9.4.2(eslint@8.56.0)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
@@ -1921,14 +1921,6 @@ packages:
     hasBin: true
     dev: false
 
-  /semver@7.5.4:
-    resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
-    dev: false
-
   /semver@7.6.0:
     resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
     engines: {node: '>=10'}
@@ -2176,7 +2168,7 @@ packages:
       espree: 9.6.1
       esquery: 1.5.0
       lodash: 4.17.21
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
     dev: false
