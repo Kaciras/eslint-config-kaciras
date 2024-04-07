@@ -1,3 +1,5 @@
+const tseslint = require("typescript-eslint");
+
 /*
  * 包含了 TypeScript 相关的规则，注意这些规则会跟 JS 的冲突，最好限制范围。
  *
@@ -6,10 +8,7 @@
  * TS 的规则和 JS 有冲突，故需要将 TS 的规则放在 overrides 里，详情见：
  * https://github.com/typescript-eslint/typescript-eslint/issues/1928
  */
-module.exports = {
-	extends: [
-		"plugin:@typescript-eslint/recommended",
-	],
+module.exports = [...tseslint.configs.recommended, {
 	rules: {
 		// 不让用感叹号和 any 是不对的，总有些情况必须这样做。
 		"@typescript-eslint/no-explicit-any": 0,
@@ -38,4 +37,4 @@ module.exports = {
 		// 不要把 non-null 的感叹号跟等号连用。
 		"@typescript-eslint/no-confusing-non-null-assertion": 2,
 	},
-};
+}];
