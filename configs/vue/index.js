@@ -1,7 +1,7 @@
-const pluginVue = require("eslint-plugin-vue");
+import pluginVue from "eslint-plugin-vue";
 
 // 里面已经设置了 parser: "vue-eslint-parser"
-module.exports = [...pluginVue.configs["flat/essential"], {
+export default [...pluginVue.configs["flat/essential"], {
 	rules: {
 		// 没有 emits 或是 onXXX props 的话事件会绑到元素上，应当避免。
 		"vue/require-explicit-emits": [2, { allowProps: true }],

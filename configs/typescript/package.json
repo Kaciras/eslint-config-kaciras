@@ -3,7 +3,7 @@
 	"version": "2.6.4",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
-	"author": "Kaciras <Kaciras@pm.me>",
+	"author": "Kaciras <Kaciras@outlook.com>",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
@@ -13,9 +13,7 @@
 		"eslint",
 		"typescript"
 	],
-	"engines": {
-		"node": ">=14"
-	},
+	"type": "module",
 	"main": "index.js",
 	"peerDependencies": {
 		"eslint": ">=9"

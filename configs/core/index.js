@@ -1,7 +1,7 @@
-const kaciras = require("../../plugin/index.js");
-const stylistic = require("@stylistic/eslint-plugin-js");
+import stylistic from "@stylistic/eslint-plugin-js";
+import kaciras from "../../plugin/index.js";
 
-module.exports = [{
+export default [{
 	plugins: { kaciras, stylistic },
 	rules: {
 		// 我应该不会这么写吧，不过还是加上以免意外。

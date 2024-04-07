@@ -1,4 +1,4 @@
-const { builtinModules } = require("module");
+import { builtinModules } from "module";
 
 const builtins = new Set(builtinModules);
 
@@ -228,7 +228,7 @@ function check(orderMap, exclude, program) {
  *
  * @type {import('eslint').Rule.RuleModule}
  */
-module.exports = {
+export default {
 	meta: {
 		type: "layout",
 		fixable: "code",

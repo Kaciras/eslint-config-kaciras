@@ -1,6 +1,6 @@
-const importGroupSort = require("./import-group-sort");
+import importGroupSort from "./import-group-sort.js";
 
-module.exports = {
+export default {
 	rules: {
 		"import-group-sort": importGroupSort,
 	},

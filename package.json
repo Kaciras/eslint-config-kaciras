@@ -1,5 +1,6 @@
 {
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"lint": "eslint --fix debug.ts",
 		"inspect": "eslint --inspect-config",

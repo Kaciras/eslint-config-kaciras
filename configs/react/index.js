@@ -1,9 +1,9 @@
-const react = require("eslint-plugin-react");
+import react from "eslint-plugin-react";
 
 /*
  * 该配置仅适用于 React 17+ 并使用 React Hooks 的项目。
  */
-module.exports = [
+export default [
 	react.configs["jsx-runtime"],
 	react.configs.recommended,
 	{

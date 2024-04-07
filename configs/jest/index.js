@@ -1,4 +1,4 @@
-const jest = require("eslint-plugin-jest");
+import jest from "eslint-plugin-jest";
 
 /*
  * 因为无法在 eslint 的配置里获取 jest 的配置，所以没法像 ts 那样直接用。
@@ -12,7 +12,7 @@ const jest = require("eslint-plugin-jest");
  *
  * 我想用 overrides ESLint 似乎没有提供在配置文件里获取 cwd 参数的方法。
  */
-module.exports = {
+export default {
 	...jest.configs["flat/recommended"],
 	rules: {
 		...jest.configs["flat/recommended"].rules,

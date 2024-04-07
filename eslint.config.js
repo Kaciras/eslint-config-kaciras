@@ -1,8 +1,8 @@
-const core = require("./configs/core/index.js");
-const typescript = require("./configs/typescript/index.js");
+import core from "./configs/core/index.js";
+import typescript from "./configs/typescript/index.js";
 
 // 没有使用 eslint-plugin-mocha 因为它的规则太严了
-module.exports = [
+export default [
 	...core,
 	...typescript,
 	{

@@ -3,7 +3,8 @@
 	"version": "2.6.1",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
-	"author": "Kaciras <Kaciras@pm.me>",
+	"author": "Kaciras <Kaciras@outlook.com>",
+	"type": "module",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
