@@ -19,7 +19,7 @@
 	},
 	"main": "index.js",
 	"peerDependencies": {
-		"eslint": ">=8"
+		"eslint": ">=9"
 	},
 	"optionalDependencies": {
 		"@kaciras/eslint-config-typescript": "^2.3.0"

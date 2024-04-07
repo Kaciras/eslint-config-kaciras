@@ -11,7 +11,7 @@
 		"directory": "plugin"
 	},
 	"peerDependencies": {
-		"eslint": ">=8"
+		"eslint": ">=9"
 	},
 	"dependencies": {
 		"eslint-utils": "^3.0.0"

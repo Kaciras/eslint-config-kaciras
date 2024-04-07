@@ -20,7 +20,7 @@
 		"@kaciras/eslint-plugin": "workspace:^"
 	},
 	"peerDependencies": {
-		"eslint": ">=8"
+		"eslint": ">=9"
 	},
 	"devDependencies": {
 		"eslint": "^9.0.0",
