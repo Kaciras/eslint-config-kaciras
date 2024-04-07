@@ -81,6 +81,9 @@ importers:
       eslint-plugin-vue:
         specifier: ^9.24.0
         version: 9.24.0(eslint@9.0.0)
+      typescript-eslint:
+        specifier: ^7.5.0
+        version: 7.5.0(eslint@9.0.0)(typescript@5.4.4)
     optionalDependencies:
       '@kaciras/eslint-config-typescript':
         specifier: ^2.3.0
@@ -93,7 +96,7 @@ importers:
   plugin:
     dependencies:
       eslint:
-        specifier: '>=8'
+        specifier: '>=9'
         version: 9.0.0
       eslint-utils:
         specifier: ^3.0.0

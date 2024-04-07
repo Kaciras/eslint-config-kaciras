@@ -1,3 +1,5 @@
+const jest = require("eslint-plugin-jest");
+
 /*
  * 因为无法在 eslint 的配置里获取 jest 的配置，所以没法像 ts 那样直接用。
  * 建议将此扩展写在 overrides 里，仅对测试文件生效：
@@ -11,12 +13,11 @@
  * 我想用 overrides ESLint 似乎没有提供在配置文件里获取 cwd 参数的方法。
  */
 module.exports = {
-	// env.jest 已经在插件中设置了。
-	extends: [
-		"plugin:jest/style",
-		"plugin:jest/recommended",
-	],
+	...jest.configs["flat/recommended"],
 	rules: {
+		...jest.configs["flat/recommended"].rules,
+		...jest.configs["flat/style"].rules,
+
 		// 生命周期钩子当然要写在最前面啊。
 		"jest/prefer-hooks-on-top": 2,
 

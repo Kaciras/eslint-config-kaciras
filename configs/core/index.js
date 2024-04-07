@@ -3,14 +3,6 @@ const stylistic = require("@stylistic/eslint-plugin-js");
 
 module.exports = [{
 	plugins: { kaciras, stylistic },
-	// env: {
-	// 	// 包含了 parserOptions.ecmaVersion: 15
-	// 	es2024: true,
-	// },
-	languageOptions: {
-		ecmaVersion: "latest",
-		sourceType: "module",
-	},
 	rules: {
 		// 我应该不会这么写吧，不过还是加上以免意外。
 		"no-array-constructor": 2,
@@ -93,5 +85,4 @@ module.exports = [{
 		// 多行元素末尾一律加逗号，便于删除和调整顺序。
 		"stylistic/comma-dangle": [2, "always-multiline"],
 	},
-},
-];
+}];
