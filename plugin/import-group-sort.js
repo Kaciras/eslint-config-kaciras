@@ -103,16 +103,13 @@ function tryExpandEnd(sourceCode, node) {
 		nl = text.length;
 	}
 
-	const comment = sourceCode.getCommentsAfter(node).at(-1);
-	if (comment) {
-		// no more token in the line.
-		if (comment.range[0] >= nl) {
-			return nl;
-		}
-		// comment block across the line.
-		if (comment.range[1] >= nl) {
-			return comment.range[0];
-		}
+	// Expand before the first multi-lines comment if present.
+	const crossComment = sourceCode
+		.getCommentsAfter(node)
+		.find(c => c.range[1] > nl);
+
+	if (crossComment) {
+		return crossComment.range[0];
 	}
 
 	const next = sourceCode.getTokenAfter(node);
@@ -120,7 +117,7 @@ function tryExpandEnd(sourceCode, node) {
 		return nl; // node is the last non-comment token.
 	}
 
-	// non-comment token in the line, stop expanding.
+	// Non-comment token in the line, stop expanding.
 	return next.range[0] < nl ? next.range[0] : nl;
 }
 
@@ -233,7 +230,7 @@ export default {
 		type: "layout",
 		fixable: "code",
 		docs: {
-			description: "sort imports",
+			description: "sort imports by type and module location",
 			recommended: false,
 		},
 		schema: [{

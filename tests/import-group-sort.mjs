@@ -1,5 +1,5 @@
-import { createRequire } from "module";
 import { RuleTester } from "eslint";
+import tseslint from "typescript-eslint";
 import rule from "../plugin/import-group-sort.js";
 
 function join(...list) {
@@ -7,7 +7,7 @@ function join(...list) {
 }
 
 const testerJS = new RuleTester({
-	parserOptions: {
+	languageOptions: {
 		sourceType: "module",
 		ecmaVersion: "latest",
 	},
@@ -147,6 +147,21 @@ testerJS.run("import-group-sort", rule, {
 		{
 			code: join(
 				"import 'eslint';",
+				"import 'path'; /*\n foo */",
+				"// Comments in next lines",
+			),
+			output: join(
+				"import 'path'; ",
+				"import 'eslint';",
+				"/*",
+				" foo */",
+				"// Comments in next lines",
+			),
+			errors: ["builtin modules should before 3rd party modules"],
+		},
+		{
+			code: join(
+				"import 'eslint';",
 				"import 'path'; /*foo*/ /*bar\n*/",
 			),
 			output: join(
@@ -202,10 +217,8 @@ testerJS.run("import-group-sort", rule, {
 });
 
 const testerTS = new RuleTester({
-	parser: createRequire(import.meta.url).resolve("@typescript-eslint/parser"),
-	parserOptions: {
-		sourceType: "module",
-		ecmaVersion: "latest",
+	languageOptions: {
+		parser: tseslint.parser,
 	},
 });
 
