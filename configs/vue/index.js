@@ -2,6 +2,7 @@ import pluginVue from "eslint-plugin-vue";
 
 // 里面已经设置了 parser: "vue-eslint-parser"
 export default [...pluginVue.configs["flat/essential"], {
+	name: "kaciras/vue",
 	rules: {
 		// 没有 emits 或是 onXXX props 的话事件会绑到元素上，应当避免。
 		"vue/require-explicit-emits": [2, { allowProps: true }],

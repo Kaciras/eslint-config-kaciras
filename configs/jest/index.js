@@ -14,6 +14,7 @@ import jest from "eslint-plugin-jest";
  */
 export default {
 	...jest.configs["flat/recommended"],
+	name: "kaciras/jest",
 	rules: {
 		...jest.configs["flat/recommended"].rules,
 		...jest.configs["flat/style"].rules,

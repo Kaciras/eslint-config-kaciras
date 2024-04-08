@@ -1,12 +1,14 @@
-import react from "eslint-plugin-react";
+import reactRecommended from "eslint-plugin-react/configs/recommended.js";
+import jsxRuntime from "eslint-plugin-react/configs/jsx-runtime.js";
 
 /*
  * 该配置仅适用于 React 17+ 并使用 React Hooks 的项目。
  */
 export default [
-	react.configs["jsx-runtime"],
-	react.configs.recommended,
+	reactRecommended,
+	jsxRuntime,
 	{
+		name: "kaciras/react",
 		settings: {
 			react: {
 				version: "detect",

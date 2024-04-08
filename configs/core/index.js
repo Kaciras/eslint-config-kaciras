@@ -3,6 +3,7 @@ import kaciras from "../../plugin/index.js";
 
 export default [{
 	plugins: { kaciras, stylistic },
+	name: "kaciras/javascript",
 	rules: {
 		// 我应该不会这么写吧，不过还是加上以免意外。
 		"no-array-constructor": 2,

@@ -6,6 +6,7 @@ import vuePreset from "./index.js";
  * 与 @kaciras/typescript 一起使用时必须放在其后面。
  */
 export default [...vuePreset, {
+	name: "kaciras/vue-typescript",
 	files: ["**/*.vue"],
 	languageOptions: {
 		parserOptions: {

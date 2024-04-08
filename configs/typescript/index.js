@@ -9,6 +9,7 @@ import tseslint from "typescript-eslint";
  * https://github.com/typescript-eslint/typescript-eslint/issues/1928
  */
 export default [...tseslint.configs.recommended, {
+	name: "kaciras/typescript",
 	rules: {
 		// 不让用感叹号和 any 是不对的，总有些情况必须这样做。
 		"@typescript-eslint/no-explicit-any": 0,
