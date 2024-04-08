@@ -9,7 +9,7 @@ Kaciras JavaScript style.
 You'll first need to install [ESLint](http://eslint.org):
 
 ```
-npm i eslint
+pnpm add eslint
 ```
 
 Next, install config packages:
@@ -32,23 +32,30 @@ npm i -D @kaciras/eslint-config-vue
 
 ## Usage
 
-Add `@kaciras/*` to the `extends` section of your `.eslintrc` configuration file.
+All packages are ESM and export flat configs, they cannot be used for legacy project.
 
 ```javascript
-module.exports = {
-	root: true,
-	extends: [
-		"@kaciras/core",
-		"@kaciras/typescript", // for TS project
-		"@kaciras/react", // for React project
+import core from "@kaciras/eslint-config-core";
+import typescript from "@kaciras/eslint-config-typescript";
+import jest from "@kaciras/eslint-config-jest";
+import react from "@kaciras/eslint-config-react";
+import vueTs from "@kaciras/eslint-config-vue/typescript.js";
 
-		"@kaciras/vue", // for Vue project or
-		"@kaciras/vue/typescript", // for Vue & Typescript
-	],
+export default [
+	...core,
+	...typescript, // for TS project
+	...vueTs, // for Vue & Typescript
+
 	// for project uses Jest
-	overrides: [{
-		files: "<test match pattern>",
-		extends: ["@kaciras/jest"],
-	}],
-};
+	jest.map(config => ({ ...config, files: ["<test match pattern>"]})),
+
+	// for React project
+	react.map(config => ({ ...config, files: ["**/*.[jt]sx"]})),
+    
+	{
+		rules: {
+			"kaciras/import-group-sort": "warn",
+		},
+	},
+];
 ```

@@ -106,7 +106,7 @@ function tryExpandEnd(sourceCode, node) {
 	// Expand before the first multi-lines comment if present.
 	const crossComment = sourceCode
 		.getCommentsAfter(node)
-		.find(c => c.range[1] > nl);
+		.find(c => c.range[1] >= nl);
 
 	if (crossComment) {
 		return crossComment.range[0];

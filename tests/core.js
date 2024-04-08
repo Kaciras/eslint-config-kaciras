@@ -1,7 +1,7 @@
 import assert from "assert";
 import { Linter } from "eslint";
 import coreConfig from "../configs/core/index.js";
-import { getConfig } from "./common.mjs";
+import { getConfig } from "./common.js";
 
 const config = await getConfig("dummy.js", coreConfig);
 

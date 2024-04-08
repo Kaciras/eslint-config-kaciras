@@ -11,10 +11,10 @@ import tseslint from "typescript-eslint";
 export default [...tseslint.configs.recommended, {
 	name: "kaciras/typescript",
 	rules: {
-		// 不让用感叹号和 any 是不对的，总有些情况必须这样做。
+		// I need `any` for the flexible language.
 		"@typescript-eslint/no-explicit-any": 0,
 
-		// TS 并非完美无缺，总有用到 @ts-ignore 的时候。
+		// Type-test needs `@ts-expect-error`.
 		"@typescript-eslint/ban-ts-comment": 0,
 
 		// 多行总是加上末尾的逗号，一来整齐些，二是调整顺序更方便。

@@ -1,26 +1,23 @@
 import stylistic from "@stylistic/eslint-plugin-js";
-import kaciras from "../../plugin/index.js";
+import kaciras from "@kaciras/eslint-plugin";
 
 export default [{
 	plugins: { kaciras, stylistic },
 	name: "kaciras/javascript",
 	rules: {
-		// 我应该不会这么写吧，不过还是加上以免意外。
-		"no-array-constructor": 2,
-
-		// 永远使用三等号，避免一些无聊的问题。
-		// 有时候其它语言写多了，回来会忘。
+		// Don’t use the dross of weakly typed languages.
 		"eqeqeq": 2,
 
 		// 永远不要使用 for-in，这个遗留的糟粕已经被其他写法取代了。
 		// 同样 Python 写多了可能会忘。
 		"no-restricted-syntax": [2, "ForInStatement"],
 
-		// 一些永远不要使用的特性。
+		// Also some dross you should never to use.
 		"no-sequences": 2,
 		"no-throw-literal": 2,
 		"no-label-var": 2,
 
+		// Variable named with only dashes means ignored.
 		"no-unused-vars": [2, {
 			varsIgnorePattern: "^_+$",
 		}],
@@ -61,7 +58,7 @@ export default [{
 			SwitchCase: 1,
 		}],
 
-		// 换行用俩字符确实多余，统一使用 \n
+		// \n is more popular and simpler than \r\n
 		"stylistic/linebreak-style": [2, "unix"],
 
 		// 函数名和括号间不加空格，关键字与括号间加。
