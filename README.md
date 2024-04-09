@@ -42,20 +42,20 @@ import react from "@kaciras/eslint-config-react";
 import vueTs from "@kaciras/eslint-config-vue/typescript.js";
 
 export default [
-	...core,
-	...typescript, // for TS project
-	...vueTs, // for Vue & Typescript
+    ...core,
+    ...typescript, // for TS project
+    ...vueTs, // for Vue & Typescript
 
-	// for project uses Jest
-	jest.map(config => ({ ...config, files: ["<test match pattern>"]})),
+    // for project uses Jest
+    ...jest.map(config => ({ ...config, files: ["<test match pattern>"]})),
 
-	// for React project
-	react.map(config => ({ ...config, files: ["**/*.[jt]sx"]})),
+    // for React project
+    ...react.map(config => ({ ...config, files: ["**/*.[jt]sx"]})),
     
-	{
-		rules: {
-			"kaciras/import-group-sort": "warn",
-		},
-	},
+    {
+        rules: {
+            "kaciras/import-group-sort": "warn",
+        },
+    },
 ];
 ```
