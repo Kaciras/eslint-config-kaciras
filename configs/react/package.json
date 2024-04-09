@@ -6,7 +6,7 @@
 	"author": "Kaciras <Kaciras@outlook.com>",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
+		"url": "https://github.com/Kaciras/eslint-config-kaciras",
 		"directory": "configs/react"
 	},
 	"keywords": [

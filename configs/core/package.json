@@ -6,7 +6,7 @@
 	"author": "Kaciras <Kaciras@outlook.com>",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Kaciras/eslint-config-kaciras.git",
+		"url": "https://github.com/Kaciras/eslint-config-kaciras",
 		"directory": "configs/core"
 	},
 	"keywords": [
@@ -14,14 +14,14 @@
 	],
 	"type": "module",
 	"main": "index.js",
-	"dependencies": {
-		"@kaciras/eslint-plugin": "workspace:^",
-		"@stylistic/eslint-plugin-js": "^1.7.0"
-	},
 	"peerDependencies": {
 		"eslint": ">=9"
 	},
 	"devDependencies": {
 		"eslint": "^9.0.0"
+	},
+	"dependencies": {
+		"@kaciras/eslint-plugin": "workspace:^",
+		"@stylistic/eslint-plugin-js": "^1.7.0"
 	}
 }
