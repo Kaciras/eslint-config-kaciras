@@ -1,6 +1,4 @@
-import { builtinModules } from "module";
-
-const builtins = new Set(builtinModules);
+import { isBuiltin } from "module";
 
 const descriptions = {
 	ImportType: "type import",
@@ -55,7 +53,7 @@ function getModuleLocation(value) {
 		? path
 		: path.slice(0, slashIndex);
 
-	return builtins.has(root) ? "Builtin" : "NodeModule";
+	return isBuiltin(root) ? "Builtin" : "NodeModule";
 }
 
 /**
