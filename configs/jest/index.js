@@ -6,9 +6,11 @@ import jest from "eslint-plugin-jest";
  *
  * @example
  * import jest from "@kaciras/eslint-config-jest";
- * import { testMatch } from "./jest.config.js";
+ * import jc from "./jest.config.js";
  *
- * export default [{ ...jest, files: testMatch }]
+ * export default [
+ *     ...jest.map(config => ({	...config, files: jc.testMatch }))
+ * ]
  */
 export default [
 	jest.configs["flat/recommended"],

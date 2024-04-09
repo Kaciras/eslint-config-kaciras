@@ -2,12 +2,13 @@ import assert from "assert";
 import { ESLint } from "eslint";
 
 /**
- * 计算应用于指定文件的规则，展开 extends 和 overrides 属性。
+ * Calculate the final config used to lint the file.
  *
- * @param filename 文件名
- * @param config 规则
+ * @param config Flat config array.
+ * @param filename Name of the file to lint.
+ * @return {Promise<any>} The resolving is asynchronous.
  */
-export async function getConfig(filename, config) {
+export function resolveConfig(config, filename) {
 	const eslint = new ESLint({
 		overrideConfig: config,
 		overrideConfigFile: true,
@@ -15,28 +16,23 @@ export async function getConfig(filename, config) {
 	return eslint.calculateConfigForFile(filename);
 }
 
-/**
- * 处理规则对象，统一返回数组形式，等级统一为字符串。
- *
- * @param rule 原始规则
- * @return 标准化后的规则
- */
-function normalize(rule) {
+function normalizeRule(rule) {
 	if (!Array.isArray(rule)) {
 		rule = [rule];
 	}
-	switch (rule[0]) {
+	let [severity, ...options] = rule;
+	switch (severity) {
 		case 0:
-			rule[0] = "off";
+			severity = "off";
 			break;
 		case 1:
-			rule[0] = "warn";
+			severity = "warn";
 			break;
 		case 2:
-			rule[0] = "error";
+			severity = "error";
 			break;
 	}
-	return rule;
+	return [severity, ...options];
 }
 
 const packages = [
@@ -66,45 +62,33 @@ const packages = [
 	},
 ];
 
-// 没有使用 describe 或 for-of 因为 WebStorm 不识别。
+/*
+ * Don't use the describe or for-loop because WebStorm cannot recognize them。
+ * https://mochajs.org/#dynamically-generating-tests
+ */
 packages.forEach(({ name, plugins }) => {
 
-	/**
-	 * 验证扩展已经添加了相关的插件，无需写 plugins: [...]。
-	 */
 	it("should add plugins from " + name, async () => {
 		const { default: items } = await import(name);
-
-		const revolved = items
-			.map(i => i.plugins)
-			.filter(Boolean)
-			.flatMap(Object.keys);
+		const revolved = items.map(i => i.plugins).filter(Boolean).flatMap(Object.keys);
 
 		assert.deepEqual([...new Set(revolved)], plugins);
 	});
 
-	/**
-	 * Check all rules in the config must change the rules of the base config.
-	 */
 	it("should not have redundant rules - " + name, async () => {
 		const { default: items } = await import(name);
-		const base = items.slice(0, -1);
 		const custom = items.at(-1);
-
-		const resolved = {};
-		for (const item of base) {
-			Object.assign(resolved, item.rules);
-		}
+		const resolved = items.slice(0, -1).reduce((a, b) => Object.assign(a, b.rules), {});
 
 		for (const [k, v] of Object.entries(custom.rules ?? {})) {
 			const fromExt = resolved[k];
-			const [level, ...options] = normalize(v);
+			const [level, ...options] = normalizeRule(v);
 
 			if (level === "off" && !fromExt) {
 				assert.fail(`${k} = off is redundant`);
 			}
 
-			const [baseLevel, ...baseOptions] = normalize(fromExt);
+			const [baseLevel, ...baseOptions] = normalizeRule(fromExt);
 			if (level !== baseLevel) {
 				continue;
 			}

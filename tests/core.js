@@ -1,9 +1,9 @@
 import assert from "assert";
 import { Linter } from "eslint";
 import coreConfig from "../configs/core/index.js";
-import { getConfig } from "./common.js";
+import { resolveConfig } from "./common.js";
 
-const config = await getConfig("dummy.js", coreConfig);
+const config = await resolveConfig(coreConfig, "dummy.js");
 
 const linter = new Linter();
 
