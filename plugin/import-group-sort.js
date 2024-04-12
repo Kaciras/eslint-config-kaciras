@@ -92,30 +92,37 @@ function compare(w1, w2) {
 	return { i: NaN, result: 0 };
 }
 
+/**
+ * We consider comments on the same line and after the import
+ * as descriptions of the import, and they will be moved together.
+ */
 function tryExpandEnd(sourceCode, node) {
 	const text = sourceCode.getText();
-
-	// nl is start index of the next line.
 	let nl = text.indexOf("\n", node.range[1]) + 1;
+
+	// File does not have a blank line at the end.
 	if (nl === 0) {
 		nl = text.length;
 	}
 
-	// Expand before the first multi-lines comment if present.
-	const crossComment = sourceCode
-		.getCommentsAfter(node)
+	/*
+	 * The real end is the start of the next token that cross the LF,
+	 * or just the LF if the next token is in the different line.
+	 *
+	 * Since ESLint uses `getComments*` and `getToken*` to get comments
+	 * and non-comment tokens respectively, we need to do the work twice.
+	 */
+	const comment = sourceCode.getCommentsAfter(node)
 		.find(c => c.range[1] >= nl);
 
-	if (crossComment) {
-		return Math.min(nl, crossComment.range[0]);
+	if (comment) {
+		return Math.min(nl, comment.range[0]);
 	}
 
 	const nextToken = sourceCode.getTokenAfter(node);
 	if (!nextToken) {
 		return nl; // node is the last non-comment token.
 	}
-
-	// Non-comment token in the line, stop expanding.
 	return Math.min(nl, nextToken.range[0]);
 }
 

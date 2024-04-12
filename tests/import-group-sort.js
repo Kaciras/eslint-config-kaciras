@@ -55,6 +55,11 @@ testerJS.run("import-group-sort", rule, {
 	],
 	invalid: [
 		{
+			code: "import './test';\nimport 'eslint';", // No new line at the end.
+			output:	"import 'eslint';\nimport './test';\n",
+			errors: ["3rd party modules should before local files"],
+		},
+		{
 			code: join(
 				"import './test';",
 				"import 'eslint';",

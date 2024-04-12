@@ -8,14 +8,11 @@ export default [{
 		// Don’t use the dross of weakly typed languages.
 		"eqeqeq": 2,
 
-		// 永远不要使用 for-in，这个遗留的糟粕已经被其他写法取代了。
-		// 同样 Python 写多了可能会忘。
-		"no-restricted-syntax": [2, "ForInStatement"],
-
 		// Also some dross you should never to use.
-		"no-sequences": 2,
 		"no-throw-literal": 2,
+		"no-sequences": 2,
 		"no-label-var": 2,
+		"no-restricted-syntax": [2, "ForInStatement"],
 
 		// Variable named with only dashes means ignored.
 		"no-unused-vars": [2, {
@@ -25,7 +22,6 @@ export default [{
 		// window 对象上一些容易混淆的成员，要求必须以 `window.*` 来调用。
 		// 该列表参考了：
 		// https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals
-		// 这里比它的规则少些，删除了一些常用的。
 		"no-restricted-globals": [2,
 			"event", "name", "external",
 			"top", "length", "parent",
@@ -48,7 +44,8 @@ export default [{
 			"find", "print", "confirm", "stop",
 		],
 
-		// 很多语言单括号用于 char 类型，这里保持一致使用双括号。
+		// Languages with char type all use double quotes for strings,
+		// and it's better to be consistent.
 		"stylistic/quotes": [2, "double", {
 			avoidEscape: true,
 		}],
@@ -61,7 +58,7 @@ export default [{
 		// \n is more popular and simpler than \r\n
 		"stylistic/linebreak-style": [2, "unix"],
 
-		// 函数名和括号间不加空格，关键字与括号间加。
+		// Consistency with other languages I use.
 		"stylistic/space-before-function-paren": [2, {
 			anonymous: "always",
 			named: "never",
@@ -80,7 +77,7 @@ export default [{
 		// 不加分号是有坑的，不知道为什么默认不启用这规则。
 		"stylistic/semi": [2, "always"],
 
-		// 多行元素末尾一律加逗号，便于删除和调整顺序。
+		// Avoid edge cases, and allow move the row to reordering.
 		"stylistic/comma-dangle": [2, "always-multiline"],
 	},
 }];

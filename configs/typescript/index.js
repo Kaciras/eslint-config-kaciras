@@ -9,8 +9,7 @@ export default [...tseslint.configs.recommended, {
 		// Type-test needs `@ts-expect-error`.
 		"@typescript-eslint/ban-ts-comment": 0,
 
-		// 多行总是加上末尾的逗号，一来整齐些，二是调整顺序更方便。
-		// TS 多了一些情况比如枚举、泛型，要单独配置下。
+		// Avoid edge cases, and allow move the row to reordering.
 		"@typescript-eslint/comma-dangle": [2, "always-multiline"],
 
 		// 没有用到的参数也不要省略，保持签名的一致性。
