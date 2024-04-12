@@ -107,16 +107,16 @@ function tryExpandEnd(sourceCode, node) {
 		.find(c => c.range[1] >= nl);
 
 	if (crossComment) {
-		return crossComment.range[0];
+		return Math.min(nl, crossComment.range[0]);
 	}
 
-	const next = sourceCode.getTokenAfter(node);
-	if (!next) {
+	const nextToken = sourceCode.getTokenAfter(node);
+	if (!nextToken) {
 		return nl; // node is the last non-comment token.
 	}
 
 	// Non-comment token in the line, stop expanding.
-	return next.range[0] < nl ? next.range[0] : nl;
+	return Math.min(nl, nextToken.range[0]);
 }
 
 /**

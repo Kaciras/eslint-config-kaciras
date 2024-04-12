@@ -161,6 +161,21 @@ testerJS.run("import-group-sort", rule, {
 		},
 		{
 			code: join(
+				"import './test';",
+				"import 'path';",
+				"",
+				"// Comments in next lines",
+			),
+			output: join(
+				"import 'path';",
+				"import './test';",
+				"",
+				"// Comments in next lines",
+			),
+			errors: ["builtin modules should before local files"],
+		},
+		{
+			code: join(
 				"import 'eslint';",
 				"import 'path'; /*foo*/ /*bar\n*/",
 			),
