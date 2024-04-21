@@ -20,13 +20,13 @@
 		"eslint": ">=9"
 	},
 	"optionalDependencies": {
-		"@kaciras/eslint-config-typescript": "^2.3.0"
+		"@kaciras/eslint-config-typescript": "workspace:^"
 	},
 	"devDependencies": {
-		"eslint": "^9.0.0"
+		"eslint": "^9.1.0"
 	},
 	"dependencies": {
-		"typescript-eslint": "^7.5.0",
-		"eslint-plugin-vue": "^9.24.0"
+		"eslint-plugin-vue": "^9.25.0",
+		"typescript-eslint": "^7.7.0"
 	}
 }
