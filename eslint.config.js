@@ -1,3 +1,4 @@
+import eslintPlugin from "eslint-plugin-eslint-plugin";
 import core from "./configs/core/index.js";
 import typescript from "./configs/typescript/index.js";
 
@@ -6,4 +7,7 @@ export default [...core, ...typescript, {
 	rules: {
 		"kaciras/import-group-sort": "warn",
 	},
+}, {
+	files: ["plugin/*.js"],
+	...eslintPlugin.configs["flat/recommended"],
 }];

@@ -210,7 +210,8 @@ function check(orderMap, exclude, program) {
 
 			this.report({
 				node,
-				message: `${lm} should before ${rm}`,
+				messageId: "violation",
+				data: { lm, rm },
 				fix: sort.bind(code, info, imports),
 			});
 		}
@@ -232,6 +233,9 @@ function check(orderMap, exclude, program) {
  */
 export default {
 	meta: {
+		messages: {
+			violation: "{{ lm }} should before {{ rm }}",
+		},
 		type: "layout",
 		fixable: "code",
 		docs: {
