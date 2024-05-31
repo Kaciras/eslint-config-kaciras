@@ -1,6 +1,7 @@
 import stylistic from "@stylistic/eslint-plugin-js";
 import kaciras from "@kaciras/eslint-plugin";
 
+// Though there is only 1 item, we still export an array for extensibility.
 export default [{
 	plugins: { kaciras, stylistic },
 	name: "kaciras/javascript",
@@ -8,7 +9,7 @@ export default [{
 		// Don’t use the dross of weakly typed languages.
 		"eqeqeq": 2,
 
-		// Also some dross you should never to use.
+		// Some dross you should never to use.
 		"no-throw-literal": 2,
 		"no-sequences": 2,
 		"no-label-var": 2,
@@ -46,11 +47,9 @@ export default [{
 
 		// Languages with char type all use double quotes for strings,
 		// and it's better to be consistent.
-		"stylistic/quotes": [2, "double", {
-			avoidEscape: true,
-		}],
+		"stylistic/quotes": [2, "double"],
 
-		// 空格缩进都是异端！
+		// I just like using Tab.
 		"stylistic/indent": [2, "tab", {
 			SwitchCase: 1,
 		}],
@@ -65,16 +64,12 @@ export default [{
 			asyncArrow: "always",
 		}],
 
-		// 单行对象的大括号内加一个空格
+		// Essential spaces improve code readability.
+		"stylistic/key-spacing": 2,
 		"stylistic/object-curly-spacing": [2, "always"],
-
-		// 代码块与前面的标识符之间加一个空格
 		"stylistic/space-before-blocks": 2,
 
-		// 对象键值之间的冒号后面加一个空格
-		"stylistic/key-spacing": 2,
-
-		// 不加分号是有坑的，不知道为什么默认不启用这规则。
+		// In rare cases adding a semicolon changes the semantics.
 		"stylistic/semi": [2, "always"],
 
 		// Avoid edge cases, and allow move the row to reordering.

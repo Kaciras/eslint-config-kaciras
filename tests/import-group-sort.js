@@ -205,6 +205,8 @@ testerJS.run("import-group-sort", rule, {
 			),
 			errors: ["builtin modules should before 3rd party modules"],
 		},
+
+		// Fix imports with statements and blank lines.
 		{
 			code: join(
 				"import 'process';",
