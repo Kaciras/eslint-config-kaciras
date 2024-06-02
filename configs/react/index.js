@@ -10,16 +10,14 @@ export default [reactRecommended, jsxRuntime, {
 		},
 	},
 	rules: {
-		// 写太快可能没注意这个，加上该规则以便用 ESLint 批量改。
+		// Let ESLint fix it for me.
 		"react/jsx-curly-brace-presence": [2, {
 			props: "never",
 			children: "never",
 		}],
 
-		/*
-		 * If you forget this of a button inside a form,
-		 * click it will refresh the page unexpectedly.
-		 */
+		// If you forget this of a button inside a form,
+		// click it will refresh the page unexpectedly.
 		"react/button-has-type": 2,
 	},
 }];

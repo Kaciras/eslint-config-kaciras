@@ -17,17 +17,18 @@ export default [
 	{
 		name: "kaciras/jest",
 		rules: {
-			// 生命周期钩子当然要写在最前面啊。
-			"jest/prefer-hooks-on-top": 2,
-
 			// Cannot recognize assertions from third-party libraries.
 			"jest/expect-expect": 0,
 
-			// 有些库还在用回调式的 API，强行转异步不好看。
+			// Some libraries still use callback-style APIs,
+			// and converting them to asynchronous isn't elegant.
 			"jest/no-done-callback": 0,
 
 			// Prefer sugar functions.
 			"jest/prefer-mock-promise-shorthand": 2,
+
+			// Lifecycle hooks interspersed in cases makes it difficult to find。
+			"jest/prefer-hooks-on-top": 2,
 		},
-	}
+	},
 ];

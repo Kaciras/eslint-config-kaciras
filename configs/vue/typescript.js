@@ -2,8 +2,9 @@ import tseslint from "typescript-eslint";
 import vuePreset from "./index.js";
 
 /**
- * 对 Vue SFC 文件使用 TypeScript 规则，并强制其使用 <script lang="ts">。
- * 在与 @kaciras/typescript 一起使用时必须放在其后面。
+ * Forcing Vue SFC uses TypeScript in <script> blocks.
+ *
+ * It's a replacement of the index module, do not add both.
  */
 export default [...vuePreset, {
 	name: "kaciras/vue-typescript",

@@ -6,7 +6,7 @@ import pluginVue from "eslint-plugin-vue";
 export default [...pluginVue.configs["flat/essential"], {
 	name: "kaciras/vue",
 	rules: {
-		// 没有 emits 或是 onXXX props 的话事件会绑到元素上，应当避免。
+		// Events are bound to the element if there are no emits or on* props.
 		"vue/require-explicit-emits": [2, { allowProps: true }],
 
 		// I used double quote in JS, so single for template.

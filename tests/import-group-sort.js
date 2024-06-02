@@ -54,11 +54,7 @@ testerJS.run("import-group-sort", rule, {
 		},
 	],
 	invalid: [
-		{
-			code: "import './test';\nimport 'eslint';", // No new line at the end.
-			output:	"import 'eslint';\nimport './test';\n",
-			errors: ["3rd party modules should before local files"],
-		},
+		// Invalid orders
 		{
 			code: join(
 				"import './test';",
@@ -137,7 +133,7 @@ testerJS.run("import-group-sort", rule, {
 			errors: ["builtin modules should before 3rd party modules"],
 		},
 
-		// Fix with multiple tokens in the line.
+		// Fix imports that have multiple tokens in the line.
 		{
 			code: join(
 				"import 'eslint';",
@@ -166,21 +162,6 @@ testerJS.run("import-group-sort", rule, {
 		},
 		{
 			code: join(
-				"import './test';",
-				"import 'path';",
-				"",
-				"// Comments in next lines",
-			),
-			output: join(
-				"import 'path';",
-				"import './test';",
-				"",
-				"// Comments in next lines",
-			),
-			errors: ["builtin modules should before local files"],
-		},
-		{
-			code: join(
 				"import 'eslint';",
 				"import 'path'; /*foo*/ /*bar\n*/",
 			),
@@ -206,7 +187,7 @@ testerJS.run("import-group-sort", rule, {
 			errors: ["builtin modules should before 3rd party modules"],
 		},
 
-		// Fix imports with statements and blank lines.
+		// Fix imports that mixed with statements and blank lines.
 		{
 			code: join(
 				"import 'process';",
@@ -234,6 +215,26 @@ testerJS.run("import-group-sort", rule, {
 				"eslint.run();",
 			),
 			errors: ["builtin modules should before 3rd party modules"],
+		},
+		{
+			code: join(
+				"import './test';",
+				"import 'path';",
+				"",
+				"// Comments in next lines",
+			),
+			output: join(
+				"import 'path';",
+				"import './test';",
+				"",
+				"// Comments in next lines",
+			),
+			errors: ["builtin modules should before local files"],
+		},
+		{
+			code: "import './test';\nimport 'eslint';", // No new line at the end.
+			output:	"import 'eslint';\nimport './test';\n",
+			errors: ["3rd party modules should before local files"],
 		},
 	],
 });
@@ -254,6 +255,8 @@ testerTS.run("import-group-sort", rule, {
 			"import type { URL } from 'url';",
 			"import type S from './some-file'",
 		),
+
+		// Tests for non-ES6 imports.
 		join(
 			"import fs from 'fs';",
 			"import Alias = Some.Type;",

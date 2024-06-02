@@ -20,8 +20,8 @@ export default [{
 			varsIgnorePattern: "^_+$",
 		}],
 
-		// window 对象上一些容易混淆的成员，要求必须以 `window.*` 来调用。
-		// 该列表参考了：
+		// Some confusing names should be called with `window.*`.
+		// Reference:
 		// https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals
 		"no-restricted-globals": [2,
 			"event", "name", "external",

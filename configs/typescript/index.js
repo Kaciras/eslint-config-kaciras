@@ -12,13 +12,12 @@ export default [...tseslint.configs.recommended, {
 		// Avoid edge cases, and allow move the row to reordering.
 		"@typescript-eslint/comma-dangle": [2, "always-multiline"],
 
-		// 没有用到的参数也不要省略，保持签名的一致性。
+		// Maybe useful...
 		"@typescript-eslint/no-unused-vars": [2, {
-			args: "none",
 			ignoreRestSiblings: true,
 		}],
 
-		// 复杂类型的数组还是用泛型好些，简单的用方括号。
+		// Complex arrays are better off with a generic type.
 		"@typescript-eslint/array-type": [2, {
 			default: "array-simple",
 		}],
