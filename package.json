@@ -7,10 +7,10 @@
 		"test": "mocha tests"
 	},
 	"devDependencies": {
-		"@eslint/config-inspector": "^0.4.8",
+		"@eslint/config-inspector": "^0.4.10",
 		"@kaciras/eslint-plugin": "workspace:^",
 		"@types/eslint": "^8.56.10",
-		"eslint": "^9.3.0",
+		"eslint": "^9.4.0",
 		"eslint-plugin-eslint-plugin": "^6.1.0",
 		"mocha": "^10.4.0"
 	}
