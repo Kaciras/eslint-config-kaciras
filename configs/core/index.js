@@ -47,7 +47,9 @@ export default [{
 
 		// Languages with char type all use double quotes for strings,
 		// and it's better to be consistent.
-		"stylistic/quotes": [2, "double"],
+		"stylistic/quotes": [2, "double", {
+			avoidEscape: true,
+		}],
 
 		// I just like using Tab.
 		"stylistic/indent": [2, "tab", {
