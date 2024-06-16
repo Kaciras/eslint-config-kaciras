@@ -26,6 +26,7 @@ export default [
 
 			// Prefer sugar functions.
 			"jest/prefer-mock-promise-shorthand": 2,
+			"jest/prefer-jest-mocked": 2,
 
 			// Lifecycle hooks interspersed in cases makes it difficult to find。
 			"jest/prefer-hooks-on-top": 2,
