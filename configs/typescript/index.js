@@ -17,6 +17,8 @@ export default [...tseslint.configs.recommended, {
 		// Maybe useful...
 		"@typescript-eslint/no-unused-vars": [2, {
 			ignoreRestSiblings: true,
+			argsIgnorePattern: "^_+$",
+			varsIgnorePattern: "^_+$",
 		}],
 
 		// Complex arrays are better off with a generic type.
