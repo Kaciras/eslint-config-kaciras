@@ -6,8 +6,10 @@ export default [...tseslint.configs.recommended, {
 		// I need `any` for the flexible language.
 		"@typescript-eslint/no-explicit-any": 0,
 
-		// Type-test needs `@ts-expect-error`.
-		"@typescript-eslint/ban-ts-comment": 0,
+		// Allow @ts-expect-error without description.
+		"@typescript-eslint/ban-ts-comment": [2, {
+			"ts-expect-error": false,
+		}],
 
 		// Avoid edge cases, and allow move the row to reordering.
 		"@typescript-eslint/comma-dangle": [2, "always-multiline"],
