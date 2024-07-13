@@ -8,27 +8,30 @@ import { isBuiltin } from "module";
  */
 export default {
 	meta: {
+		messages: {
+			violation: `Import of built-in Node.js module "{{ name }}" must use the "node:" prefix.`,
+		},
 		type: "problem",
 		docs: {
-			description:
-				"Disallow imports of built-in Node.js modules without the `node:` prefix",
+			description: "Force import of Node built-in modules with the `node:` prefix",
 			category: "Best Practices",
 		},
-		fixable: "code",
 		schema: [],
+		fixable: "code",
 	},
 	create: context => ({
 		ImportDeclaration(node) {
 			const { source } = node;
 
 			if (source?.type === "Literal" && typeof source.value === "string") {
-				const specifier = source.value;
+				const name = source.value;
 
-				if (!specifier.startsWith("node:") && isBuiltin(specifier)) {
+				if (!name.startsWith("node:") && isBuiltin(name)) {
 					context.report({
 						node: source,
-						message: `Import of built-in Node.js module "${specifier}" must use the "node:" prefix.`,
-						fix: fixer => fixer.replaceText(source, `"node:${specifier}"`),
+						messageId: "violation",
+						data: { name },
+						fix: fixer => fixer.replaceText(source, `"node:${name}"`),
 					});
 				}
 			}
