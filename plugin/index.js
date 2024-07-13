@@ -1,4 +1,5 @@
 import importGroupSort from "./import-group-sort.js";
+import importNodePrefix from "./import-node-prefix.js";
 import packageJSON from "./package.json" with { type: "json" };
 
 export default {
@@ -8,5 +9,6 @@ export default {
 	},
 	rules: {
 		"import-group-sort": importGroupSort,
+		"import-node-prefix": importNodePrefix,
 	},
 };
