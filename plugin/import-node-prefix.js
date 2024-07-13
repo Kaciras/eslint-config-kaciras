@@ -1,6 +1,27 @@
 import { isBuiltin } from "module";
 
 /**
+ * @this {import('eslint').Rule.RuleContext}
+ * @param source {import("estree").ImportDeclaration}
+ */
+function checkImport({ source }) {
+	const name = source.value;
+	if (name.startsWith("node:") || !isBuiltin(name)) {
+		return;
+	}
+	this.report({
+		messageId: "violation",
+		data: { name },
+		node: source,
+		fix: fixer => fixer.replaceText(source, `"node:${name}"`),
+	});
+}
+
+/**
+ * Enforce usage of `node:` prefix for import Node.js built-ins.
+ *
+ * The relevant proposal received a large number of endorsements, but was not implemented:
+ * https://github.com/import-js/eslint-plugin-import/issues/2717
  *
  * The original code is from the gist (Unlicense)
  * @see https://gist.github.com/alex-kinokon/f8f373e1a6bb01aa654d9085f2cff834
@@ -19,22 +40,5 @@ export default {
 		schema: [],
 		fixable: "code",
 	},
-	create: context => ({
-		ImportDeclaration(node) {
-			const { source } = node;
-
-			if (source?.type === "Literal" && typeof source.value === "string") {
-				const name = source.value;
-
-				if (!name.startsWith("node:") && isBuiltin(name)) {
-					context.report({
-						node: source,
-						messageId: "violation",
-						data: { name },
-						fix: fixer => fixer.replaceText(source, `"node:${name}"`),
-					});
-				}
-			}
-		},
-	}),
+	create: context => ({ ImportDeclaration: checkImport.bind(context) }),
 };
