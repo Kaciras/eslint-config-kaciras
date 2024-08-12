@@ -1,4 +1,4 @@
-import importGroupSort from "./import-group-sort.js";
+import importSpecifierOrder from "./import-specifier-order.js";
 import importNodePrefix from "./import-node-prefix.js";
 import packageJSON from "./package.json" with { type: "json" };
 
@@ -8,7 +8,10 @@ export default {
 		name: packageJSON.name,
 	},
 	rules: {
-		"import-group-sort": importGroupSort,
+		"import-specifier-order": importSpecifierOrder,
 		"import-node-prefix": importNodePrefix,
+
+		// @deprecated
+		"import-group-sort": importSpecifierOrder,
 	},
 };

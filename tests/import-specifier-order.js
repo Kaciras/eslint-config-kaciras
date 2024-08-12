@@ -1,6 +1,6 @@
 import { RuleTester } from "eslint";
 import tseslint from "typescript-eslint";
-import rule from "../plugin/import-group-sort.js";
+import rule from "@kaciras/eslint-plugin/import-specifier-order.js";
 
 function join(...list) {
 	return list.join("\n") + "\n";
@@ -14,7 +14,7 @@ const testerJS = new RuleTester({
 });
 
 // TODO: import assertion is only a stage 3 proposal, test it when ESLint supported.
-testerJS.run("import-group-sort", rule, {
+testerJS.run("import-specifier-order", rule, {
 	valid: [
 		join(
 			"import 'process';",
@@ -245,7 +245,7 @@ const testerTS = new RuleTester({
 	},
 });
 
-testerTS.run("import-group-sort", rule, {
+testerTS.run("import-specifier-order", rule, {
 	valid: [
 		join(
 			"import type S from './some-file';",
