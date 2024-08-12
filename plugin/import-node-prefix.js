@@ -1,6 +1,8 @@
 import { isBuiltin } from "module";
 
 /**
+ * Report violation if the import source is built-in and not use node: protocol.
+ *
  * @this {import('eslint').Rule.RuleContext}
  * @param source {import("estree").ImportDeclaration}
  */
@@ -11,7 +13,6 @@ function checkImport({ source }) {
 	}
 	this.report({
 		messageId: "violation",
-		data: { name },
 		node: source,
 		fix: fixer => fixer.replaceText(source, `"node:${name}"`),
 	});
@@ -30,7 +31,7 @@ function checkImport({ source }) {
 export default {
 	meta: {
 		messages: {
-			violation: `Import of built-in Node.js module "{{ name }}" must use the "node:" prefix.`,
+			violation: `Import of built-in Node.js module must use the "node:" prefix.`,
 		},
 		type: "problem",
 		docs: {

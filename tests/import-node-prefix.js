@@ -29,7 +29,9 @@ testerJS.run("import-node-prefix", rule, {
 		{
 			code: "import * as x from 'process'",
 			output: 'import * as x from "node:process"',
-			errors: ['Import of built-in Node.js module "process" must use the "node:" prefix.'],
+			errors: [
+				'Import of built-in Node.js module must use the "node:" prefix.',
+			],
 		},
 		{
 			code: join(
@@ -43,9 +45,9 @@ testerJS.run("import-node-prefix", rule, {
 				'import { register } from "node:module";',
 			),
 			errors: [
-				'Import of built-in Node.js module "process" must use the "node:" prefix.',
-				'Import of built-in Node.js module "fs" must use the "node:" prefix.',
-				'Import of built-in Node.js module "module" must use the "node:" prefix.',
+				'Import of built-in Node.js module must use the "node:" prefix.',
+				'Import of built-in Node.js module must use the "node:" prefix.',
+				'Import of built-in Node.js module must use the "node:" prefix.',
 			],
 		},
 	],
@@ -76,9 +78,9 @@ testerTS.run("import-node-prefix", rule, {
 				'import { type y } from "node:module";',
 			),
 			errors: [
-				'Import of built-in Node.js module "process" must use the "node:" prefix.',
-				'Import of built-in Node.js module "module" must use the "node:" prefix.',
-				'Import of built-in Node.js module "module" must use the "node:" prefix.',
+				'Import of built-in Node.js module must use the "node:" prefix.',
+				'Import of built-in Node.js module must use the "node:" prefix.',
+				'Import of built-in Node.js module must use the "node:" prefix.',
 			],
 		},
 	],
