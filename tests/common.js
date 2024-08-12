@@ -58,7 +58,7 @@ const packages = [
 	},
 	{
 		name: "../configs/typescript/index.js",
-		plugins: ["@typescript-eslint"],
+		plugins: ["@typescript-eslint", "stylisticTs"],
 	},
 ];
 
