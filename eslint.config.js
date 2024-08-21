@@ -5,7 +5,7 @@ import typescript from "./configs/typescript/index.js";
 // Not use eslint-plugin-mocha because its rules are too strict.
 export default [...core, ...typescript, {
 	rules: {
-		"kaciras/import-group-sort": "warn",
+		"kaciras/import-specifier-order": "warn",
 	},
 }, {
 	files: ["plugin/*.js"],

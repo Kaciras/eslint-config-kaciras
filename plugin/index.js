@@ -10,8 +10,5 @@ export default {
 	rules: {
 		"import-specifier-order": importSpecifierOrder,
 		"import-node-prefix": importNodePrefix,
-
-		// @deprecated
-		"import-group-sort": importSpecifierOrder,
 	},
 };
