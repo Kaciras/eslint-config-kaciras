@@ -19,11 +19,11 @@
 		"eslint": ">=9"
 	},
 	"devDependencies": {
-		"eslint": "^9.9.0",
+		"eslint": "^9.9.1",
 		"typescript": "^5.5.4"
 	},
 	"dependencies": {
-		"@stylistic/eslint-plugin-ts": "^2.6.2",
-		"typescript-eslint": "^8.0.1"
+		"@stylistic/eslint-plugin-ts": "^2.6.4",
+		"typescript-eslint": "^8.2.0"
 	}
 }

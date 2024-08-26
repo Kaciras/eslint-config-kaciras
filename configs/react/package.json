@@ -19,7 +19,7 @@
 		"eslint": ">=9"
 	},
 	"devDependencies": {
-		"eslint": "^9.9.0"
+		"eslint": "^9.9.1"
 	},
 	"dependencies": {
 		"eslint-plugin-react": "^7.35.0",
