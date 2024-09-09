@@ -9,8 +9,8 @@
 	"devDependencies": {
 		"@eslint/config-inspector": "^0.5.4",
 		"@kaciras/eslint-plugin": "workspace:^",
-		"@types/eslint": "^9.6.0",
-		"eslint": "^9.9.1",
+		"@types/eslint": "^9.6.1",
+		"eslint": "^9.10.0",
 		"eslint-plugin-eslint-plugin": "^6.2.0",
 		"mocha": "^10.7.3"
 	}
