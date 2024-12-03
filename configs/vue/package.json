@@ -15,7 +15,13 @@
 		"typescript"
 	],
 	"type": "module",
-	"main": "index.js",
+	"exports": {
+		".": "./index.js",
+		"./typescript": {
+			"default": "./typescript.js",
+			"types": "./index.d.ts"
+		}
+	},
 	"peerDependencies": {
 		"eslint": ">=9"
 	},

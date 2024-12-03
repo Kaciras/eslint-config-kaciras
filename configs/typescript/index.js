@@ -1,5 +1,5 @@
 import tseslint from "typescript-eslint";
-import stylisticTs from '@stylistic/eslint-plugin-ts';
+import stylisticTs from "@stylistic/eslint-plugin-ts";
 
 export default [...tseslint.configs.recommended, {
 	name: "kaciras/typescript",

@@ -13,7 +13,9 @@
 		"eslint"
 	],
 	"type": "module",
-	"main": "index.js",
+	"exports": {
+		".": "./index.js"
+	},
 	"peerDependencies": {
 		"eslint": ">=9"
 	},
