@@ -23,6 +23,9 @@ importers:
       mocha:
         specifier: ^11.1.0
         version: 11.1.0
+      typescript-eslint:
+        specifier: ^8.26.0
+        version: 8.26.0(eslint@9.22.0)(typescript@5.8.2)
 
   configs/core:
     dependencies:
