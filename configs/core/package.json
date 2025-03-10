@@ -20,10 +20,10 @@
 		"eslint": ">=9"
 	},
 	"devDependencies": {
-		"eslint": "^9.21.0"
+		"eslint": "^9.22.0"
 	},
 	"dependencies": {
 		"@kaciras/eslint-plugin": "workspace:^",
-		"@stylistic/eslint-plugin-js": "^4.0.1"
+		"@stylistic/eslint-plugin-js": "^4.2.0"
 	}
 }

@@ -12,6 +12,9 @@ export default [...pluginVue.configs["flat/essential"], {
 		// I used double quote in JS, so single for template.
 		"vue/html-quotes": [2, "single", { avoidEscape: true }],
 
+		// Help me to remove the redundant imports.
+		"vue/no-import-compiler-macros": 2,
+
 		// Consistent with JSX, and different from custom elements.
 		"vue/component-name-in-template-casing": [2, "PascalCase"],
 	},

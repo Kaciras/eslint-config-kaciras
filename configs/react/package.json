@@ -21,10 +21,10 @@
 		"eslint": ">=9"
 	},
 	"devDependencies": {
-		"eslint": "^9.21.0"
+		"eslint": "^9.22.0"
 	},
 	"dependencies": {
 		"eslint-plugin-react": "^7.37.4",
-		"eslint-plugin-react-hooks": "^5.1.0"
+		"eslint-plugin-react-hooks": "^5.2.0"
 	}
 }
