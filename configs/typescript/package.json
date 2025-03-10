@@ -1,6 +1,6 @@
 {
 	"name": "@kaciras/eslint-config-typescript",
-	"version": "3.2.1",
+	"version": "3.3.0",
 	"license": "MIT",
 	"description": "Kaciras JavaScript style",
 	"author": "Kaciras <Kaciras@outlook.com>",
