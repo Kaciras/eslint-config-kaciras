@@ -23,7 +23,6 @@
 		"eslint": "^9.22.0"
 	},
 	"dependencies": {
-		"@kaciras/eslint-plugin": "workspace:^",
 		"@stylistic/eslint-plugin-js": "^4.2.0"
 	}
 }

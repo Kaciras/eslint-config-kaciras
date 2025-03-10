@@ -1,5 +1,5 @@
 import stylistic from "@stylistic/eslint-plugin-js";
-import kaciras from "@kaciras/eslint-plugin";
+import kaciras from "./plugins.js";
 
 // Though there is only 1 item, we still export an array for extensibility.
 export default [{

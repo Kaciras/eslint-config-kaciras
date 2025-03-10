@@ -3,12 +3,11 @@
 	"type": "module",
 	"scripts": {
 		"lint": "eslint --fix debug.ts",
-		"inspect": "eslint --inspect-config",
+		"inspect": "eslint-config-inspector",
 		"test": "mocha tests"
 	},
 	"devDependencies": {
 		"@eslint/config-inspector": "^1.0.2",
-		"@kaciras/eslint-plugin": "workspace:^",
 		"@types/eslint": "^9.6.1",
 		"eslint": "^9.22.0",
 		"eslint-plugin-eslint-plugin": "^6.4.0",

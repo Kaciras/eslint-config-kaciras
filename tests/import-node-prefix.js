@@ -1,6 +1,6 @@
 import { RuleTester } from "eslint";
 import tseslint from "typescript-eslint";
-import rule from "../plugin/import-node-prefix.js";
+import rule from "../configs/core/import-node-prefix.js";
 
 function join(...list) {
 	return list.join("\n") + "\n";

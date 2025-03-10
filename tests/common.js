@@ -42,7 +42,7 @@ const packages = [
 	},
 	{
 		name: "../configs/react/index.js",
-		plugins: ["react"],
+		plugins: ["react-hooks", "react"],
 	},
 	{
 		name: "../configs/jest/index.js",

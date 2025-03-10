@@ -1,6 +1,6 @@
 import { RuleTester } from "eslint";
 import tseslint from "typescript-eslint";
-import rule from "@kaciras/eslint-plugin/import-specifier-order.js";
+import rule from "../configs/core/import-specifier-order.js";
 
 function join(...list) {
 	return list.join("\n") + "\n";
