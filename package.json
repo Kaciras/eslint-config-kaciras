@@ -9,9 +9,9 @@
 	"devDependencies": {
 		"@eslint/config-inspector": "^1.0.2",
 		"@types/eslint": "^9.6.1",
-		"eslint": "^9.22.0",
-		"typescript-eslint": "^8.26.0",
+		"eslint": "^9.23.0",
 		"eslint-plugin-eslint-plugin": "^6.4.0",
-		"mocha": "^11.1.0"
+		"mocha": "^11.1.0",
+		"typescript-eslint": "^8.27.0"
 	}
 }
