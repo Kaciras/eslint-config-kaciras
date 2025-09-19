@@ -20,7 +20,7 @@
 		"eslint": ">=9"
 	},
 	"devDependencies": {
-		"eslint": "^9.34.0"
+		"eslint": "^9.35.0"
 	},
 	"dependencies": {
 		"@stylistic/eslint-plugin-js": "^4.4.1"
