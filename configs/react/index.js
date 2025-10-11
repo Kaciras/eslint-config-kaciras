@@ -1,12 +1,11 @@
-import * as reactHooks from "eslint-plugin-react-hooks";
-import reactRecommended from "eslint-plugin-react/configs/recommended.js";
-import jsxRuntime from "eslint-plugin-react/configs/jsx-runtime.js";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactPlugin from "eslint-plugin-react";
 
 // Designed for projects that use React 17+ with Hooks.
 export default [
-	reactHooks.configs["recommended-latest"],
-	jsxRuntime,
-	reactRecommended,
+	reactHooks.configs.flat["recommended-latest"],
+	reactPlugin.configs.flat.recommended,
+	reactPlugin.configs.flat["jsx-runtime"],
 	{
 		name: "kaciras/react",
 		settings: {
@@ -15,7 +14,7 @@ export default [
 			},
 		},
 		rules: {
-		// Let ESLint fix it for me.
+			// Let ESLint fix it for me.
 			"react/jsx-curly-brace-presence": [2, {
 				props: "never",
 				children: "never",
