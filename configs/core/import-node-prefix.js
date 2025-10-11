@@ -31,7 +31,7 @@ function checkImport({ source }) {
 export default {
 	meta: {
 		messages: {
-			violation: `Import of built-in Node.js module must use the "node:" prefix.`,
+			violation: "Import of built-in Node.js module must use the \"node:\" prefix.",
 		},
 		type: "problem",
 		docs: {

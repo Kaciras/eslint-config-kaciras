@@ -64,7 +64,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'eslint';",
 				"import './test';",
 			),
-			errors: ["3rd party modules should before local files"],
+			errors: ["3rd party modules should go before local files"],
 		},
 		{
 			code: join(
@@ -75,7 +75,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import '@/alias';",
 				"import './test';",
 			),
-			errors: ["3rd party modules should before local files"],
+			errors: ["3rd party modules should go before local files"],
 		},
 		{
 			code: join(
@@ -86,7 +86,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'module';",
 				"import './test';",
 			),
-			errors: ["builtin modules should before local files"],
+			errors: ["builtin modules should go before local files"],
 		},
 		{
 			code: join(
@@ -97,7 +97,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'module';",
 				"import 'file:./test';",
 			),
-			errors: ["builtin modules should before local files"],
+			errors: ["builtin modules should go before local files"],
 		},
 		{
 			code: join(
@@ -108,7 +108,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'module';",
 				"import 'data:text/javascript,alert(1)';",
 			),
-			errors: ["builtin modules should before local files"],
+			errors: ["builtin modules should go before local files"],
 		},
 		{
 			code: join(
@@ -119,7 +119,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'path';",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -130,7 +130,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'node:path';",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 
 		// Fix imports that have multiple tokens in the line.
@@ -143,7 +143,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'path'; /*foo*/ //bar",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -158,7 +158,7 @@ testerJS.run("import-specifier-order", rule, {
 				" foo */",
 				"// Comments in next lines",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -170,7 +170,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import 'eslint';",
 				"/*bar\n*/",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -184,7 +184,7 @@ testerJS.run("import-specifier-order", rule, {
 				"const x={",
 				"key:123};",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 
 		// Fix imports that mixed with statements and blank lines.
@@ -201,7 +201,7 @@ testerJS.run("import-specifier-order", rule, {
 				"",
 				"import 'eslint';",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -214,7 +214,7 @@ testerJS.run("import-specifier-order", rule, {
 				"import eslint from 'eslint';",
 				"eslint.run();",
 			),
-			errors: ["builtin modules should before 3rd party modules"],
+			errors: ["builtin modules should go before 3rd party modules"],
 		},
 		{
 			code: join(
@@ -229,12 +229,12 @@ testerJS.run("import-specifier-order", rule, {
 				"",
 				"// Comments in next lines",
 			),
-			errors: ["builtin modules should before local files"],
+			errors: ["builtin modules should go before local files"],
 		},
 		{
 			code: "import './test';\nimport 'eslint';", // No new line at the end.
 			output:	"import 'eslint';\nimport './test';\n",
-			errors: ["3rd party modules should before local files"],
+			errors: ["3rd party modules should go before local files"],
 		},
 	],
 });
@@ -276,7 +276,7 @@ testerTS.run("import-specifier-order", rule, {
 				"import type S from './some-file'",
 				"import fs from 'fs';",
 			),
-			errors: ["type import should before value import"],
+			errors: ["type import should go before value import"],
 		},
 		{
 			code: join(
@@ -287,7 +287,7 @@ testerTS.run("import-specifier-order", rule, {
 				"import type { URL } from 'url';",
 				"import type S from './some-file';",
 			),
-			errors: ["builtin modules should before local files"],
+			errors: ["builtin modules should go before local files"],
 		},
 		{
 			code: join(
@@ -298,7 +298,7 @@ testerTS.run("import-specifier-order", rule, {
 				"import fs from 'fs';",
 				"import Alias = Some.Type;",
 			),
-			errors: ["value import should before type alias"],
+			errors: ["value import should go before type alias"],
 		},
 		{
 			code: join(
@@ -309,7 +309,7 @@ testerTS.run("import-specifier-order", rule, {
 				"import fs from 'fs';",
 				"import Alias = require('../local');",
 			),
-			errors: ["builtin modules should before local files"],
+			errors: ["builtin modules should go before local files"],
 		},
 	],
 });

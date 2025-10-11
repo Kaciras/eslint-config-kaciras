@@ -234,7 +234,7 @@ function check(orderMap, exclude, program) {
 export default {
 	meta: {
 		messages: {
-			violation: "{{ lm }} should before {{ rm }}",
+			violation: "{{ lm }} should go before {{ rm }}",
 		},
 		type: "layout",
 		fixable: "code",
