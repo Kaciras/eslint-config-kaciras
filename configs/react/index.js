@@ -23,6 +23,9 @@ export default [
 			// If you forget this of a button inside a form,
 			// click it will refresh the page unexpectedly.
 			"react/button-has-type": 2,
+
+			// Not intelligent enough.
+			"react-hooks/static-components": 0,
 		},
 	},
 ];
