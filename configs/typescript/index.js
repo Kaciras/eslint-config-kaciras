@@ -1,9 +1,7 @@
 import tseslint from "typescript-eslint";
-import stylisticTs from "@stylistic/eslint-plugin-ts";
 
 export default [...tseslint.configs.recommended, {
 	name: "kaciras/typescript",
-	plugins: { stylisticTs },
 	rules: {
 		// I need `any` for the flexible language.
 		"@typescript-eslint/no-explicit-any": 0,
@@ -25,9 +23,6 @@ export default [...tseslint.configs.recommended, {
 			default: "array-simple",
 		}],
 
-		"stylisticTs/member-delimiter-style": 2,
-
-		// Avoid edge cases, and allow move the row to reordering.
-		"stylisticTs/comma-dangle": [2, "always-multiline"],
+		"stylistic/member-delimiter-style": 2,
 	},
 }];
