@@ -174,15 +174,16 @@ function* sort(info, imports, fixer) {
 
 /**
  * @this {import('eslint').Rule.RuleContext}
+ * @param order order {string[]}
  * @param orderMap {Record<string, number>}
  * @param exclude {RegExp}
  * @param program {import("estree").Program}
  */
-function check(orderMap, exclude, program) {
+function check(order, orderMap, exclude, program) {
 	const code = this.sourceCode;
 	const imports = [];
 
-	let prev = { node: null, kinds: [], weight: [0, 0] };
+	let prev = { node: null, weight: [0, 0] };
 
 	for (const node of program.body) {
 		const [type, source] = parseImport(node) ?? [];
@@ -198,7 +199,7 @@ function check(orderMap, exclude, program) {
 
 		const weight = kinds.map(k => orderMap[k]);
 
-		const info = { node, kinds, weight };
+		const info = { node, weight };
 		imports.push(info);
 
 		const { i, result } = compare(weight, prev.weight);
@@ -206,7 +207,7 @@ function check(orderMap, exclude, program) {
 			prev = info;
 		} else {
 			const lm = descriptions[kinds[i]];
-			const rm = descriptions[prev.kinds[i]];
+			const rm = descriptions[order[prev.weight[i]]];
 
 			this.report({
 				node,
@@ -275,6 +276,6 @@ export default {
 			orderMap[order[i]] = i;
 		}
 
-		return { Program: check.bind(context, orderMap, exclude) };
+		return { Program: check.bind(context, order, orderMap, exclude) };
 	},
 };
