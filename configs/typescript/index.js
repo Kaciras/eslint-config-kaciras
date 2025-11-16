@@ -3,8 +3,9 @@ import tseslint from "typescript-eslint";
 export default [...tseslint.configs.recommended, {
 	name: "kaciras/typescript",
 	rules: {
-		// I need `any` for the flexible language.
+		// I need these for the flexible language.
 		"@typescript-eslint/no-explicit-any": 0,
+		"@typescript-eslint/no-unused-expressions": 0,
 
 		// Allow @ts-expect-error without description.
 		"@typescript-eslint/ban-ts-comment": [2, {
