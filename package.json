@@ -12,6 +12,6 @@
 		"eslint": "^9.39.2",
 		"eslint-plugin-eslint-plugin": "^7.3.0",
 		"mocha": "^11.7.5",
-		"typescript-eslint": "^8.52.0"
+		"typescript-eslint": "^8.53.1"
 	}
 }
