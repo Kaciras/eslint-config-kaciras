@@ -21,10 +21,10 @@
 		"eslint": ">=9"
 	},
 	"devDependencies": {
-		"eslint": "^10.0.0",
+		"eslint": "^10.0.2",
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
-		"typescript-eslint": "^8.54.0"
+		"typescript-eslint": "^8.56.1"
 	}
 }
