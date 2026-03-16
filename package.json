@@ -7,11 +7,11 @@
 		"test": "mocha tests"
 	},
 	"devDependencies": {
-		"@eslint/config-inspector": "^1.4.2",
+		"@eslint/config-inspector": "^1.5.0",
 		"@types/eslint": "^9.6.1",
-		"eslint": "^10.0.2",
-		"eslint-plugin-eslint-plugin": "^7.3.1",
+		"eslint": "^10.0.3",
+		"eslint-plugin-eslint-plugin": "^7.3.2",
 		"mocha": "^11.7.5",
-		"typescript-eslint": "^8.56.1"
+		"typescript-eslint": "^8.57.0"
 	}
 }
