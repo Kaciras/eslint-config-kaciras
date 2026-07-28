@@ -29,10 +29,10 @@
 		"@kaciras/eslint-config-typescript": "workspace:^"
 	},
 	"devDependencies": {
-		"eslint": "^10.7.0"
+		"eslint": "^10.8.0"
 	},
 	"dependencies": {
-		"eslint-plugin-vue": "^10.9.2",
-		"typescript-eslint": "^8.63.0"
+		"eslint-plugin-vue": "^10.10.0",
+		"typescript-eslint": "^8.65.0"
 	}
 }
