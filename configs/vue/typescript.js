@@ -1,4 +1,4 @@
-import tseslint from "typescript-eslint";
+import tsEslint from "typescript-eslint";
 import vuePreset from "./index.js";
 
 /**
@@ -11,7 +11,7 @@ export default [...vuePreset, {
 	files: ["**/*.vue"],
 	languageOptions: {
 		parserOptions: {
-			parser: tseslint.parser,
+			parser: tsEslint.parser,
 		},
 	},
 	rules: {

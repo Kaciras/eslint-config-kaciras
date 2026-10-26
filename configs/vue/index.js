@@ -1,7 +1,7 @@
 import pluginVue from "eslint-plugin-vue";
 
 /**
- * Used for Vue SFC without typescript, already includes `files: ["**\/*.vue"]`
+ * Used for Vue SFC without TypeScript, already includes `files: ["**\/*.vue"]`
  */
 export default [...pluginVue.configs["flat/essential"], {
 	name: "kaciras/vue",
